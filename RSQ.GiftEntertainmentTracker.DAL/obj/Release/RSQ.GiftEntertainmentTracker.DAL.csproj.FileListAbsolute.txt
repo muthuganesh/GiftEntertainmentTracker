@@ -1,0 +1,15 @@
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\RSQ.GiftEntertainmentTracker.DAL.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\RSQ.GiftEntertainmentTracker.DAL.pdb
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\obj\Release\ResolveAssemblyReference.cache
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\obj\Release\RSQ.GiftEntertainmentTracker.DAL.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\obj\Release\RSQ.GiftEntertainmentTracker.DAL.pdb
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\mysql.data.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\mysql.data.entity.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\mysql.visualstudio.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\mysql.web.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\RSQ.GiftEntertainmentTracker.Common.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\RSQ.GiftEntertainmentTracker.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\EntityFramework.dll
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\RSQ.GiftEntertainmentTracker.Common.pdb
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\RSQ.GiftEntertainmentTracker.pdb
+D:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.DAL\bin\Release\EntityFramework.xml
