@@ -1,0 +1,53 @@
+﻿@model RSQ.GiftEntertainmentTracker.Models.RolePermissionSetModel
+
+@{
+    ViewBag.Title = "RolePermission";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Role Permission</h2>
+
+<h3 style="font-family:Times New Roman;color:Maroon;">Role Name:@ViewData["RoleName"]</h3>
+
+@using (Html.BeginForm("RolePermission", "Role", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Company</legend>
+            <div> 
+                @Html.CheckBox("CompanyCreate")Create<br />
+                @Html.CheckBox("CompanyEdit")Edit<br />
+                @Html.CheckBox("CompanyDelete")Delete<br />
+                @Html.CheckBox("CompanyDivDep")Create Division or Department<br />
+            </div>
+    </fieldset>
+     <fieldset>
+        <legend>Division</legend>
+            <div> 
+                @Html.CheckBox("DivisionCreate")Create<br />
+                @Html.CheckBox("DivisionEdit")Edit<br />
+                @Html.CheckBox("DivisionDelete")Delete<br />
+                @Html.CheckBox("DivisionDepartment")Create Department<br />
+            </div>
+    </fieldset>
+     <fieldset>
+        <legend>Department</legend>
+            <div> 
+                @Html.CheckBox("DepartmentCreate")Create<br />
+                @Html.CheckBox("DepartmentEdit")Edit<br />
+                @Html.CheckBox("DepartmentDelete")Delete<br />
+            </div>
+    </fieldset>
+    <fieldset>
+        <legend>Adminstrator</legend>
+            <div> 
+                @Html.CheckBox("UserCreate")Create User<br />
+                @Html.CheckBox("UserEdit")Edit User<br />
+                @Html.CheckBox("UserDelete")Delete User<br />
+                @Html.CheckBox("UserResetPassword")Reset Password of User<br />
+            </div>
+    </fieldset>
+    <input type="submit" value="Save" />
+}
+
+
+

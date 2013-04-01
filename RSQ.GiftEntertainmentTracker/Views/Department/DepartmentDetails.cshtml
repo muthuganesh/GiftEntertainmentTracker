@@ -1,0 +1,54 @@
+﻿@model RSQ.GiftEntertainmentTracker.Models.DepartmentModel
+
+@{
+    ViewBag.Title = "DepartmentDetails";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Department Details</h2>
+
+<fieldset>
+    <legend>DepartmentModel</legend>
+
+    <div class="display-label">DepartmentName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DepartmentName)
+    </div>
+
+    <div class="display-label">PhoneNo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNo)
+    </div>
+
+    <div class="display-label">FaxNo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FaxNo)
+    </div>
+
+    <div class="display-label">AddedBy</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddedBy)
+    </div>
+
+    <div class="display-label">AddedDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddedDate)
+    </div>
+
+    <div class="display-label">UpdatedBy</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdatedBy)
+    </div>
+
+    <div class="display-label">UpdatedDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdatedDate)
+    </div>
+</fieldset>
+<p style="margin-left:90%">
+@if (ViewBag.DepartmentEdit == true)
+{
+    @Html.ActionLink("Edit", "EditDepartment", new { departmentId = Model.DepartmentId }) <br />
+}
+    @Html.ActionLink("Back to List", "DepartmentResult")<br />
+    @Html.ActionLink("Back to Main Page", "Index", "Home")
+</p>

@@ -1,0 +1,40 @@
+﻿@model RSQ.GiftEntertainmentTracker.Models.CompanyModel
+
+@{
+    ViewBag.Title = "CompanyDetails";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Company Details</h2>
+
+<fieldset>
+    <legend>CompanyModel</legend>
+
+    <div class="display-label">CompanyName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CompanyName)
+    </div>
+
+    <div class="display-label">Address</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">PhoneNo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNo)
+    </div>
+
+    <div class="display-label">FaxNo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FaxNo)
+    </div>
+
+</fieldset>
+<p style="margin-left:90%">
+@if (ViewBag.CompanyEdit == true)
+{
+    @Html.ActionLink("Edit", "EditCompany", new { companyId = Model.CompanyId }) <br />
+}
+    @Html.ActionLink("Back to List", "CompanyResult")<br />
+    @Html.ActionLink("Back to Main Page", "Index", "Home")
+</p>

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.DivisionModel>
+
+@{
+    ViewBag.Title = "DivisionResult";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Division Result</h2>
+
+<script type="text/javascript">
+
+function ConfirmationBox() {
+
+    var e = document.getElementById("company");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser == 0) {
+        alert("Select a Company");
+    return false;
+    }
+}
+</script>
+
+@if(ViewBag.DivisionCreate==true)
+{
+    using (Html.BeginForm("DivisionResult", "Division", FormMethod.Post))
+    {
+        <fieldset style="width:400px;">
+            <legend>Company</legend>
+            <div> 
+                <h5>Company:@Html.DropDownList("company", "Select One")</h5>
+            </div>
+            <div style="margin-left:70%;">
+                <input type="submit" value="Create Division" onclick="javascript:return ConfirmationBox();"/>
+            </div>
+        </fieldset> 
+    }
+}
+    <div>
+        @Html.Raw(ViewData["Message"] as string)
+    </div>
+
+    @{
+    var grid = new WebGrid(source: Model,
+     defaultSort: "CompanyName",
+         rowsPerPage: 25);
+ }
+ <div>
+  @grid.GetHtml(
+      tableStyle: "grid",
+      headerStyle: "head",
+      alternatingRowStyle: "alt",
+     columns: grid.Columns(
+                            grid.Column(header: ViewData["DivisionDelete"].ToString(), format: @<text>
+                                @if (@ViewData["DivisionDelete"].ToString() == "Delete")
+                                {
+                                        <a href="@Url.Action("DeleteDivision", "Division", new { divisionId = item.DivisionId })" >
+                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                                }</text>),
+                            grid.Column(header: ViewData["DivisionEdit"].ToString(), format: @<text>
+                                @if (@ViewData["DivisionEdit"].ToString() == "Edit")
+                                {
+                                        <a href="@Url.Action("EditDivision", "Division", new { divisionId = item.DivisionId })" >
+                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
+                                }</text>),
+
+                            grid.Column(header: "Details",
+                                format: (item) => Html.ActionLink("Details", "DivisionDetails", new { divisionId = item.DivisionId })),
+
+                            grid.Column(header: "Department",
+                                format: (item) => Html.ActionLink(ViewData["DivisionDepartment"].ToString(), "Select", new { divisionId = item.DivisionId })),                
+                                              
+                            grid.Column("CompanyName","Company"),
+                            grid.Column("DivisionName","Division"),
+                            grid.Column("PhoneNo","Phone Number"),
+                            grid.Column("FaxNo","Fax Number")
+    
+    )
+  )
+ </div>
+
+<div style="margin-left:90%">
+@Html.ActionLink("Back to Main Page", "Index", "Home")
+</div>

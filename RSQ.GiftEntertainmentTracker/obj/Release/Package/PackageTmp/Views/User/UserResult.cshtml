@@ -1,0 +1,62 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.UserModel>
+
+@{
+    ViewBag.Title = "UserResult";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">User Result</h2>
+<script type="text/javascript">
+
+function ConfirmationBox() {
+
+        var e = document.getElementById("department");
+        var strUser = e.options[e.selectedIndex].value;
+
+        if (strUser == 0) {
+        confirm("Select an User");
+    }
+}
+</script>
+
+
+    @using (Html.BeginForm("UserResult", "User", FormMethod.Post))
+    {
+        @Html.DropDownList("department", "Select One(Company,Division,Department)")
+        <input type="submit" value="Create User" onclick="javascript:return ConfirmationBox();"/>
+        }
+
+
+@{
+    var grid = new WebGrid(source: Model,
+     defaultSort: "CompanyName",
+         rowsPerPage: 25);
+ }
+ <div>
+  @grid.GetHtml(
+      tableStyle: "grid",
+      headerStyle: "head",
+      alternatingRowStyle: "alt",
+     columns: grid.Columns(
+                            grid.Column(header: "Delete/Edit/Details/Department",
+                         style: "text-align-center",
+                             format: (item) => new
+                                      HtmlString(Html.ActionLink("Delete", "DeleteUser", new { userId = item.UserId }) + "|" +
+                                                      Html.ActionLink("Edit", "EditUser", new { userId = item.UserId }) + " | " +
+                                                      Html.ActionLink("Details", "UserDetails", new { userId = item.UserId }) + " | "
+                                                    )
+                                        ),
+                            grid.Column("CompanyName","Company"),
+                            grid.Column("DivisionName","Division"),
+                            grid.Column("DepartmentName", "Department"),
+                            grid.Column("FirstName", "First Name"),
+                            grid.Column("LastName", "Last Name"),
+                            grid.Column("PhoneNo","Phone Number")
+    
+    )
+  )
+</div>
+
+<p style="margin-left:90%">
+    @Html.ActionLink("Back to Main Page", "Index", "Home")
+</p>
+

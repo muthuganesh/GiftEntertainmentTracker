@@ -1,0 +1,59 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.CompanyModel>
+
+@{
+    ViewBag.Title = "CompanyResult";
+}
+
+
+<h2 style="font-family:Times New Roman;color:Gray;">Company Result</h2>
+
+@if(ViewBag.CompanyCreate==true)
+{
+<p style="margin-left:90%;font-family:Times New Roman;">
+    @Html.ActionLink("Create New", "CreateCompany")
+</p>
+    }
+
+ @{
+    var grid = new WebGrid(source: Model,
+     defaultSort: "CompanyName",
+         rowsPerPage: 25);
+         
+}
+ <div>
+ 
+  @grid.GetHtml(
+      tableStyle: "grid",
+      headerStyle: "head",
+      alternatingRowStyle: "alt",
+     columns: grid.Columns(
+                        grid.Column(header: @ViewData["CompanyDelete"].ToString(), format: @<text>
+                                @if (@ViewData["CompanyDelete"].ToString() == "Delete")
+                                {
+                                        <a href="@Url.Action("DeleteCompany", "Company", new { companyId = item.CompanyId })" >
+                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                                }</text>,style:"Delete"),
+                            grid.Column(header: ViewData["CompanyEdit"].ToString(), format: @<text>
+                                @if(@ViewData["CompanyEdit"].ToString()=="Edit")
+                                {
+                                        <a href="@Url.Action("EditCompany", "Company", new { companyId = item.CompanyId })" >
+                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
+                                }</text>),
+
+                            grid.Column(header: "Details",
+                                  format: (item) => Html.ActionLink("Details", "CompanyDetails", new { companyId = item.CompanyId })),
+
+                            grid.Column(header: "Division or Department",
+                                    format: (item) => Html.ActionLink(ViewData["CompanyDivDep"].ToString(), "Select", new { companyId = item.CompanyId })),
+
+                            grid.Column("CompanyName", "Company"),
+                            grid.Column("Address", "Address"),
+                            grid.Column("PhoneNo", "Phone Number"),
+                            grid.Column("FaxNo", "Fax Number")
+
+    )
+  )
+ </div>
+<p style="margin-left:90%">
+    @Html.ActionLink("Back to Main Page", "Index", "Home")
+</p

@@ -1,0 +1,59 @@
+﻿@model RSQ.GiftEntertainmentTracker.Models.RoleModel
+
+@{
+    ViewBag.Title = "RoleUserList";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Role User List</h2>
+
+<script type="text/javascript">
+
+function ConfirmationBox() {
+
+    var e = document.getElementById("UserName");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser == 0) {
+        alert("Select a User");
+    return false;
+    }
+}
+</script>
+<h3 style="font-family:Times New Roman;color:Maroon;">Role Name:@ViewData["RoleName"]</h3>
+
+@using (Html.BeginForm("AddUserToRole", "Role", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <fieldset style="width:300px;">
+        <legend>Add User to Role</legend>
+            <div> 
+                <h5>User Name:@Html.DropDownList("UserName", "Select user")</h5>
+            </div>
+            <div style="margin-left:70%;">
+                <input type="submit" value="Save"  onclick="javascript:return ConfirmationBox();"/>
+            </div>
+    </fieldset> 
+}
+
+
+@{
+    var grid = new WebGrid(source: Model.User,
+     defaultSort: "Role",
+         rowsPerPage: 25);
+ }
+ <div>
+  @grid.GetHtml(
+      tableStyle: "grid",
+      headerStyle: "head",
+      alternatingRowStyle: "alt",
+     columns: grid.Columns(
+                 grid.Column(header: "Remove",
+                                        format: (item) => Html.ActionLink("Remove", "RemoveUser", new { userName = item.Value }) ),
+                                        
+                                  grid.Column(format: (item) => new HtmlString(item.Value))
+
+    )
+  )
+ </div>
+
+

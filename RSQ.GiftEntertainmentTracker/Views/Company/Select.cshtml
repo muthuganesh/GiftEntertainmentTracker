@@ -1,0 +1,27 @@
+﻿@model RSQ.GiftEntertainmentTracker.Models.CompanyModel
+
+@{
+    ViewBag.Title = "Select";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Select Division or Department</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<table id="commonTable">
+    @using (Html.BeginForm("Select", "Company", FormMethod.Post))
+    {
+        <tr>
+            <td>
+                 @Html.DropDownList("companyItems", "Select One")&nbsp;&nbsp;
+                 <input type="submit" value="Go" />
+            </td>
+        </tr>
+    }
+</table>
+
+<div style="margin-left:90%">
+    @Html.ActionLink("Back to List", "CompanyDetails")<br />
+    @Html.ActionLink("Back to Main Page", "Index", "Home")
+</div>

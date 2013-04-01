@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Rsq.UserProfileManagement.Models.MembershipModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">User Result</h2>
+
+@if(ViewBag.UserCreate==true)
+{
+    <p style="font-family:Times New Roman;margin-left:90%;font-size:larger;">
+        @Html.ActionLink("Create New", "Register","Account")
+    </p>
+}
+
+<script type="text/javascript">
+
+function ConfirmationBox() {
+
+    var e = document.getElementById("UserName");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser == 0) {
+        alert("Select a User");
+    return false;
+    }
+}
+
+</script>
+
+@using (Html.BeginForm("Index", "Admin", FormMethod.Post))
+{
+    <fieldset style="width:400px;">
+        <legend>Search User</legend>
+            <div> 
+                <h5>User Name:@Html.DropDownList("UserName", "Select user")</h5>
+            </div>
+            <div style="margin-left:70%;">
+                <input type="submit" value="Search an User"  onclick="javascript:return ConfirmationBox();"/>
+            </div>
+    </fieldset> 
+}
+
+@{
+    var grid = new WebGrid(source: Model,
+     defaultSort: "UserName",
+         rowsPerPage: 25);
+ }
+ <div>
+  @grid.GetHtml(
+      tableStyle: "grid",
+      headerStyle: "head",
+      alternatingRowStyle: "alt",
+     columns: grid.Columns(
+                            grid.Column(header: "Reset Password",
+                                format: (item) => Html.ActionLink(ViewData["UserResetPassword"].ToString(), "ResetPassword", new { userName = item.UserName })),
+                            
+                            grid.Column(header: "Edit",
+                                format: (item) => Html.ActionLink(ViewData["UserEdit"].ToString(), "Edit", new { userName = item.UserName })),
+
+                            grid.Column(header: "Delete",
+                                format: (item) => Html.ActionLink(ViewData["UserDelete"].ToString(), "Delete", new { userName = item.UserName })),               
+                                              
+                                  grid.Column("UserName", "User Name"),
+                                  grid.Column("Email","Email Id"),
+                                  grid.Column("Comment"),
+                                  grid.Column("IsApproved","Approved"),
+                                  grid.Column("IsLockedOut","Locked Out"),
+                                  grid.Column("IsOnline","Online")
+    
+    )
+  )
+ </div>
+
+<div style="margin-left:90%">
+@Html.ActionLink("Back to Main Page", "Index", "Home")
+</div>

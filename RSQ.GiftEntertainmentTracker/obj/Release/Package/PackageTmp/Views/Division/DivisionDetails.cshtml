@@ -1,0 +1,50 @@
+﻿@model RSQ.GiftEntertainmentTracker.Models.DivisionModel
+
+@{
+    ViewBag.Title = "DivisionDetails";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Division Details</h2>
+
+<fieldset>
+    <legend>DivisionModel</legend>
+
+    <div class="display-label">DivisionName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DivisionName)
+    </div>
+
+    <div class="display-label">Address</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">PhoneNo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNo)
+    </div>
+
+    <div class="display-label">FaxNo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FaxNo)
+    </div>
+
+    <div class="display-label">AddedBy</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddedBy)
+    </div>
+
+    <div class="display-label">UpdatedBy</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdatedBy)
+    </div>
+
+</fieldset>
+<p style="margin-left:90%">
+@if (ViewBag.DivisionEdit == true)
+{
+    @Html.ActionLink("Edit", "EditDivision", new { divisionId = Model.DivisionId }) <br />
+}
+    @Html.ActionLink("Back to List", "DivisionResult")<br />
+    @Html.ActionLink("Back to Main Page", "Index", "Home")
+</p>

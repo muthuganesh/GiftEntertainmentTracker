@@ -1,0 +1,76 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.DepartmentModel>
+
+@{
+    ViewBag.Title = "DepartmentResult";
+}
+
+<h2 style="font-family:Times New Roman;color:Gray;">Department Result</h2>
+<script type="text/javascript">
+
+function ConfirmationBox() {
+
+    var e = document.getElementById("company");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser == 0) {
+        alert("Select a Company/Division");
+    return false;
+    }
+}
+</script>
+
+@if(ViewBag.DepartmentCreate==true)
+{
+    using (Html.BeginForm("DepartmentResult", "Department", FormMethod.Post))
+    {
+         <fieldset style="width:500px;">
+            <legend>Company</legend>
+            <div> 
+                <h5>Company:@Html.DropDownList("company", "Select One")</h5>
+            </div>
+            <div style="margin-left:70%;">
+                <input type="submit" value="Create Department" onclick="javascript:return ConfirmationBox();"/>
+            </div>
+        </fieldset> 
+    }
+}
+@{
+    var grid = new WebGrid(source: Model,
+     defaultSort: "CompanyName",
+         rowsPerPage: 25);
+ }
+ <div>
+  @grid.GetHtml(
+      tableStyle: "grid",
+      headerStyle: "head",
+      alternatingRowStyle: "alt",
+     columns: grid.Columns(
+                            grid.Column(header: ViewData["DepartmentDelete"].ToString(), format: @<text>
+                                @if (@ViewData["DepartmentDelete"].ToString() == "Delete")
+                                {
+                                        <a href="@Url.Action("DeleteDepartment", "Department", new { departmentId = item.DepartmentId })" >
+                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                                }</text>),
+                            grid.Column(header: ViewData["DepartmentEdit"].ToString(), format: @<text>
+                                @if (@ViewData["DepartmentEdit"].ToString() == "Edit")
+                                {
+                                        <a href="@Url.Action("EditDepartment", "Department", new { departmentId = item.DepartmentId })" >
+                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
+                                }</text>),
+
+                            grid.Column(header: "Details",
+                                  format: (item) => Html.ActionLink("Details", "DepartmentDetails", new { departmentId = item.DepartmentId })),
+
+                            grid.Column("CompanyName","Company"),
+                            grid.Column("DivisionName","Division"),
+                            grid.Column("DepartmentName", "Department"),
+                            grid.Column("PhoneNo","Phone Number"),
+                            grid.Column("FaxNo","Fax Number")
+    
+    )
+  )
+
+</div>
+<div style="margin-left:90%">
+@Html.ActionLink("Back to Main Page", "Index", "Home")
+</div>

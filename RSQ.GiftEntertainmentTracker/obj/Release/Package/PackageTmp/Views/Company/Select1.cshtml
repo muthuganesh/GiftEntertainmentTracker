@@ -1,0 +1,16 @@
+﻿<table>
+    @using (Html.BeginForm("Select", "Company", FormMethod.Post))
+    {
+        <tr>
+            <td>
+                 @Html.DropDownList("companyItems", "Select One")&nbsp;&nbsp;
+                 <input type="submit" value="Go" />
+            </td>
+        </tr>
+    }
+</table>
+
+<div style="margin-left:90%">
+    @Html.ActionLink("Back to List", "CompanyDetails")<br />
+    @Html.ActionLink("Back to Main Page", "Index", "Home")
+</div>
