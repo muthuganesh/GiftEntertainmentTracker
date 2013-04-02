@@ -1,4 +1,4 @@
 @echo off
 git checkout master
-git pull github master
+git pull origin master
 pause
