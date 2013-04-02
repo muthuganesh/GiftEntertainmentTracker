@@ -4,5 +4,6 @@ git add .
 git status
 set /p message=Enter commit messages: 
 git commit -am "%message%"
-git push -u origin master
+git remote add origin git@github.com:muthuganesh/GiftEntertainmentTracker.git
+git push
 pause
