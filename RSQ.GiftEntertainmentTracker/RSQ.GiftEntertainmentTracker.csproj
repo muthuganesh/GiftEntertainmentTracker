@@ -87,6 +87,7 @@
     <Compile Include="Controllers\DivisionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataAccess\CompanyDAL.cs" />
     <Compile Include="DataAccess\DepartmentDAL.cs" />
@@ -153,6 +154,7 @@
     <Content Include="Images\AddTask.jpg" />
     <Content Include="Images\AddTask1.bmp" />
     <Content Include="Images\AddToFav.jpg" />
+    <Content Include="Images\Admin.jpg" />
     <Content Include="Images\bi_Close.png" />
     <Content Include="Images\b_Close.gif" />
     <Content Include="Images\b_save.gif" />
@@ -243,6 +245,7 @@
     <Content Include="Views\Role\RolePermission.cshtml" />
     <Content Include="Views\Company\Select1.cshtml" />
     <Content Include="Views\Company\CreateCompany.cshtml" />
+    <Content Include="Views\SuperAdmin\Create.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />

@@ -9,6 +9,10 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
+<div>
+    @Html.Raw((string)Session["RegisterUser"])
+</div>
+
 <div id="logOnValidation">
     @Html.ValidationSummary(true, "Login was unsuccessful. Please try again.")
 </div>

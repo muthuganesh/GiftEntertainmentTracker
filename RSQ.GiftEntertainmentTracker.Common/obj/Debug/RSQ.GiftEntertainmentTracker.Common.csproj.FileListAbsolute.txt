@@ -12,3 +12,10 @@ D:\r\RSQ.GiftEntertainmentTracker.Common\bin\Debug\mysql.web.dll
 D:\r\RSQ.GiftEntertainmentTracker.Common\obj\Debug\ResolveAssemblyReference.cache
 D:\r\RSQ.GiftEntertainmentTracker.Common\obj\Debug\RSQ.GiftEntertainmentTracker.Common.dll
 D:\r\RSQ.GiftEntertainmentTracker.Common\obj\Debug\RSQ.GiftEntertainmentTracker.Common.pdb
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Debug\RSQ.GiftEntertainmentTracker.Common.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Debug\RSQ.GiftEntertainmentTracker.Common.pdb
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Debug\mysql.data.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Debug\mysql.web.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Debug\ResolveAssemblyReference.cache
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Debug\RSQ.GiftEntertainmentTracker.Common.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Debug\RSQ.GiftEntertainmentTracker.Common.pdb

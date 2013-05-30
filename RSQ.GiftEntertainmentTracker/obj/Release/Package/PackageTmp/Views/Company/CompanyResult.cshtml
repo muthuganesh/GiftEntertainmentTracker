@@ -39,10 +39,16 @@
                                         <a href="@Url.Action("EditCompany", "Company", new { companyId = item.CompanyId })" >
                                         <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
                                 }</text>),
-
+                                                                 
                             grid.Column(header: "Details",
                                   format: (item) => Html.ActionLink("Details", "CompanyDetails", new { companyId = item.CompanyId })),
 
+                            grid.Column(header: "Super Admin",
+                                    format: @<text>
+                                            <a href="@Url.Action("Create", "SuperAdmin", new { companyId = item.CompanyId })" >
+                                            <img src="../../Images/Admin.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                                    </text>),
+                                                                      
                             grid.Column(header: "Division or Department",
                                     format: (item) => Html.ActionLink(ViewData["CompanyDivDep"].ToString(), "Select", new { companyId = item.CompanyId })),
 

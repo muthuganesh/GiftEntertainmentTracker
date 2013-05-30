@@ -12,3 +12,10 @@ E:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertai
 E:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Release\ResolveAssemblyReference.cache
 E:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Release\RSQ.GiftEntertainmentTracker.Common.dll
 E:\CurrentProgram\GiftEntertaiment\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Release\RSQ.GiftEntertainmentTracker.Common.pdb
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Release\RSQ.GiftEntertainmentTracker.Common.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Release\RSQ.GiftEntertainmentTracker.Common.pdb
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Release\mysql.data.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\bin\Release\mysql.web.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Release\ResolveAssemblyReference.cache
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Release\RSQ.GiftEntertainmentTracker.Common.dll
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker.Common\obj\Release\RSQ.GiftEntertainmentTracker.Common.pdb
