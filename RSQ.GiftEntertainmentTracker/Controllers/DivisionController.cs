@@ -171,5 +171,22 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         {
             return RedirectToAction("CreateDepartment", "Department", new { objectId = divisionId, objectTypeCode = Common.ObjectTypeCode.Divison });
         }
+
+        [HttpPost]
+        public ActionResult Address(int objectId, string objectTypeCode)
+        {
+            if (objectTypeCode == Common.ObjectTypeCode.Company && Request["companyAddress"] != null)
+            {
+                int companyId = objectId;
+                var company=CompanyDAL.Get(companyId);
+                ViewData["AddressLine1"] = company.AddressLine1;
+                ViewData["AddressLine2"] = company.AddressLine2;
+                ViewData["AddressLine3"] = company.AddressLine3;
+                ViewData["State"] = company.State;
+                ViewData["Country"] = company.Country;
+                ViewData["ZipCode"] = company.ZipCode;
+            }
+            return RedirectToAction("CreateDivision");
+        }
     }
 }

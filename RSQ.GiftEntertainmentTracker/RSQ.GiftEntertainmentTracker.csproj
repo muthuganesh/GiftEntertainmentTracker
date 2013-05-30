@@ -216,7 +216,6 @@
     </Content>
     <Content Include="Views\Admin\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Company\CreateCompany.cshtml" />
     <Content Include="Views\Company\CompanyResult.cshtml" />
     <Content Include="Views\Company\EditCompany.cshtml" />
     <Content Include="Views\Company\CompanyDetails.cshtml" />
@@ -243,6 +242,7 @@
     <Content Include="Views\Role\RoleUserList.cshtml" />
     <Content Include="Views\Role\RolePermission.cshtml" />
     <Content Include="Views\Company\Select1.cshtml" />
+    <Content Include="Views\Company\CreateCompany.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />

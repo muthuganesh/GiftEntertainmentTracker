@@ -16,7 +16,27 @@
 
     <div class="display-label">Address</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Address)
+        @Html.DisplayFor(model => model.AddressLine1)
+        <br />
+        @Html.DisplayFor(model => model.AddressLine2)
+        <br />
+        @Html.DisplayFor(model => model.AddressLine3)
+    </div>
+
+
+    <div class="display-label">State</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.State)
+    </div>
+
+    <div class="display-label">Country</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Country)
+    </div>
+
+    <div class="display-label">Zip Code</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ZipCode)
     </div>
 
     <div class="display-label">PhoneNo</div>

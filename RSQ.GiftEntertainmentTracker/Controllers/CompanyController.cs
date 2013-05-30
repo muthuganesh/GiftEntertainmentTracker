@@ -137,7 +137,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             foreach (var d in departments)
             {
                 DataAccess.DivisionDAL.Delete(d.DivisionId);
-
             }
 
             foreach (var d in departments)
@@ -181,15 +180,15 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             return RedirectToAction(action, route, new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
         }
 
-        public ActionResult Select1(int companyId)
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = Common.ListItem.division, Value = Common.ObjectTypeCode.Divison });
-            items.Add(new SelectListItem { Text = Common.ListItem.department, Value = Common.ObjectTypeCode.Department });
-            ViewBag.companyItems = items;
-            Session["companyId"] = companyId;
-            return PartialView();
-            //RedirectToAction("CreateDivision", "Division", new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
-        }
+        //public ActionResult Select1(int companyId)
+        //{
+        //    List<SelectListItem> items = new List<SelectListItem>();
+        //    items.Add(new SelectListItem { Text = Common.ListItem.division, Value = Common.ObjectTypeCode.Divison });
+        //    items.Add(new SelectListItem { Text = Common.ListItem.department, Value = Common.ObjectTypeCode.Department });
+        //    ViewBag.companyItems = items;
+        //    Session["companyId"] = companyId;
+        //    return PartialView();
+        //    //RedirectToAction("CreateDivision", "Division", new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
+        //}
     }
 }

@@ -47,7 +47,12 @@
                                     format: (item) => Html.ActionLink(ViewData["CompanyDivDep"].ToString(), "Select", new { companyId = item.CompanyId })),
 
                             grid.Column("CompanyName", "Company"),
-                            grid.Column("Address", "Address"),
+                            grid.Column("AddressLine1", "Address Line1"),
+                            grid.Column("AddressLine2", "Address Line2"),
+                            grid.Column("AddressLine3", "Address Line3"),
+                            grid.Column("State", "State"),
+                            grid.Column("Country", "Country"),
+                            grid.Column("ZipCode", "Zip Code"),
                             grid.Column("PhoneNo", "Phone Number"),
                             grid.Column("FaxNo", "Fax Number")
 

@@ -22,7 +22,12 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     SELECT
                             CompanyId,
                             CompanyName,
-                            Address,
+                            AddressLine1,
+                            AddressLine2,
+                            AddressLine3,
+                            State,
+                            Country,
+                            ZipCode,
                             Phone,
                             Fax
                     FROM
@@ -39,7 +44,12 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                 {
                     company.CompanyId = Convert.ToInt32(dr["CompanyId"]);
                     company.CompanyName = dr["CompanyName"].ToString().Trim();
-                    company.Address = dr["Address"].ToString().Trim();
+                    company.AddressLine1 = dr["AddressLine1"].ToString().Trim();
+                    company.AddressLine2 = dr["AddressLine2"].ToString().Trim();
+                    company.AddressLine3 = dr["AddressLine3"].ToString().Trim();
+                    company.State = dr["State"].ToString().Trim();
+                    company.Country = dr["Country"].ToString().Trim();
+                    company.ZipCode = dr["ZipCode"].ToString().Trim();
                     company.PhoneNo = dr["Phone"].ToString().Trim();
                     company.FaxNo = dr["Fax"].ToString().Trim();
                 }
@@ -55,7 +65,12 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue(@"tCompanyName", company.CompanyName);
-                command.Parameters.AddWithValue(@"tAddress", company.Address);
+                command.Parameters.AddWithValue(@"tAddressLine1", company.AddressLine1);
+                command.Parameters.AddWithValue(@"tAddressLine2", company.AddressLine2);
+                command.Parameters.AddWithValue(@"tAddressLine3", company.AddressLine3);
+                command.Parameters.AddWithValue(@"tState", company.State);
+                command.Parameters.AddWithValue(@"tCountry", company.Country);
+                command.Parameters.AddWithValue(@"tZipCode", company.ZipCode);
                 command.Parameters.AddWithValue(@"tPhone", company.PhoneNo);
                 command.Parameters.AddWithValue(@"tFax", company.FaxNo);
                 command.Parameters.AddWithValue(@"tAddedBy", company.AddedBy);
@@ -75,7 +90,12 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
 
                 command.Parameters.AddWithValue(@"tCompanyId", company.CompanyId);
                 command.Parameters.AddWithValue(@"tCompanyName", company.CompanyName);
-                command.Parameters.AddWithValue(@"tAddress", company.Address);
+                command.Parameters.AddWithValue(@"tAddressLine1", company.AddressLine1);
+                command.Parameters.AddWithValue(@"tAddressLine2", company.AddressLine2);
+                command.Parameters.AddWithValue(@"tAddressLine3", company.AddressLine3);
+                command.Parameters.AddWithValue(@"tState", company.State);
+                command.Parameters.AddWithValue(@"tCountry", company.Country);
+                command.Parameters.AddWithValue(@"tZipCode", company.ZipCode);
                 command.Parameters.AddWithValue(@"tPhone", company.PhoneNo);
                 command.Parameters.AddWithValue(@"tFax", company.FaxNo);
                 command.Parameters.AddWithValue(@"tUpdatedBy", company.UpdatedBy);
@@ -113,7 +133,12 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         SELECT
                             CompanyId,
                             CompanyName,
-                            Address,
+                            AddressLine1,
+                            AddressLine2,
+                            AddressLine3,
+                            State,
+                            Country,
+                            ZipCode,
                             Phone,
                             Fax,
                             AddedBy
@@ -133,10 +158,15 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     {
                         CompanyId = Convert.ToInt32(dr["CompanyId"]),
                         CompanyName = dr["CompanyName"].ToString().Trim(),
-                        Address = dr["Address"].ToString().Trim(),
+                        AddressLine1 = dr["AddressLine1"].ToString().Trim(),
+                        AddressLine2 = dr["AddressLine2"].ToString().Trim(),
+                        AddressLine3 = dr["AddressLine3"].ToString().Trim(),
+                        State=dr["State"].ToString().Trim(),
+                        Country=dr["Country"].ToString().Trim(),
+                        ZipCode = dr["ZipCode"].ToString().Trim(),
                         PhoneNo = dr["Phone"].ToString().Trim(),
                         FaxNo = dr["Fax"].ToString().Trim(),
-                        AddedBy =dr["AddedBy"].ToString().Trim()
+                        AddedBy = dr["AddedBy"].ToString().Trim()
                     };
                     companies.Add(company);
                 }

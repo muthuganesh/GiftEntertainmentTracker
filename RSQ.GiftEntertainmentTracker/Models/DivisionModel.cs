@@ -39,7 +39,25 @@ namespace RSQ.GiftEntertainmentTracker.Models
         [Required]
         [Display(Name = "Address")]
         [DataType(DataType.Text)]
-        public string Address { get; set; }
+        public string AddressLine1 { get; set; }
+
+        [DataType(DataType.Text)]
+        public string AddressLine2 { get; set; }
+
+        [DataType(DataType.Text)]
+        public string AddressLine3 { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string State { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string Country { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string ZipCode { get; set; }
 
         [Required]
         [Display(Name = "Phone Number")]
