@@ -1,0 +1,24 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.DepartmentModel>
+
+@{
+    ViewBag.Title = "Department";
+}
+
+<h2>Department</h2>
+
+@if (Model != null)
+{
+      <table style="height:0px;width:0px">
+        <tr>
+        @foreach (var item in Model)
+        {
+            if (!string.IsNullOrEmpty(item.DepartmentName))
+            {
+                <td style="height:100px;width:50px">
+                    @Html.ActionLink(item.DepartmentName, "Users", new { departmentId = item.DepartmentId })
+                </td>
+            }
+        }
+        </tr>
+    </table>
+}

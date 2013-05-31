@@ -93,6 +93,7 @@
     <Compile Include="DataAccess\DepartmentDAL.cs" />
     <Compile Include="DataAccess\DivisionDAL.cs" />
     <Compile Include="DataAccess\RolePremissionSetDAL.cs" />
+    <Compile Include="DataAccess\SuperAdminDAL.cs" />
     <Compile Include="DataAccess\UserDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,7 +246,10 @@
     <Content Include="Views\Role\RolePermission.cshtml" />
     <Content Include="Views\Company\Select1.cshtml" />
     <Content Include="Views\Company\CreateCompany.cshtml" />
-    <Content Include="Views\SuperAdmin\Create.cshtml" />
+    <Content Include="Views\SuperAdmin\SuperAdminResult.cshtml" />
+    <Content Include="Views\SuperAdmin\Department.cshtml" />
+    <Content Include="Views\SuperAdmin\Users.cshtml" />
+    <Content Include="Views\SuperAdmin\Division.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />

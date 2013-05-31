@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RSQ.GiftEntertainmentTracker.Models;
+using RSQ.GiftEntertainmentTracker.DataAccess;
 
 namespace RSQ.GiftEntertainmentTracker.Controllers
 {
@@ -11,9 +13,10 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         //
         // GET: /SuperAdmin/
 
-        public ActionResult Index()
+        public ActionResult SuperAdminResult(int companyId)
         {
-            return View();
+            List<UserModel> users = SuperAdminDAL.GetCompanyProfiles(companyId);
+            return View(users);
         }
 
         //
@@ -29,12 +32,8 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult Create(int companyId)
         {
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = Common.ListItem.division, Value = Common.ObjectTypeCode.Divison });
-            items.Add(new SelectListItem { Text = Common.ListItem.department, Value = Common.ObjectTypeCode.Department });
-            ViewBag.companyItems = items;
-            Session["companyId"] = companyId;
-            return View();
+            List<UserModel> users = SuperAdminDAL.GetCompanyProfiles(companyId);
+            return View(users);
         } 
 
         //
@@ -111,6 +110,35 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Division(int companyId)
+        {
+            List<DivisionModel> divisions = DivisionDAL.GetDivisions(companyId, Common.ObjectTypeCode.Company);
+            if (divisions.Count != 0)
+                return View(divisions);
+            else
+                return View();
+        }
+
+        public ActionResult Department(int divisionId)
+        {
+            List<DepartmentModel> departments = DepartmentDAL.GetDepartments(divisionId, Common.ObjectTypeCode.Divison);
+
+            if (departments.Count != 0)
+                return View(departments);
+            else
+                return View();
+        }
+
+        public ActionResult Users(int departmentId)
+        {
+            List<UserModel> Users = UserDAL.GetUsers(departmentId, Common.ObjectTypeCode.Department);
+
+            if (Users.Count != 0)
+                return View(Users);
+            else
+                return View();
         }
     }
 }

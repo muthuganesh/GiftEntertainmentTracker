@@ -243,7 +243,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         ON
 	                        td.ObjectId={0}
 						AND
-							td.ObjectTypeCode='{2}'", objectId,objectTypeCode);
+							td.ObjectTypeCode='{1}'", objectId,objectTypeCode);
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.DivisionModel>
+
+@{
+    ViewBag.Title = "Division";
+}
+
+<h2>Division</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@{  
+    int i=0;
+    if (Model != null)
+    {
+        <table style="height:0px;width:0px">
+            <tr>
+                @foreach (var item in Model) {
+                    i++;
+                    if(i%6!=0)
+                    {
+                            if (!string.IsNullOrEmpty(item.DivisionName))
+                            {
+                                <td style="height:100px;width:50px">
+                                    @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
+                                </td>
+                            }
+                    
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(item.DivisionName))
+                        {
+                   
+                                <td style="height:100px;width:50px">
+                                    @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
+                                </td>
+                        }
+                    }
+                }
+             </tr>
+        </table>
+    }
+}

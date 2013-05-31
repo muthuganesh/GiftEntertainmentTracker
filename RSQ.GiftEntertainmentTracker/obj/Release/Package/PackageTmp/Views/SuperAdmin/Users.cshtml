@@ -1,0 +1,29 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.UserModel>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h3>Users</h3>
+@if (Model!=null)
+{
+    foreach (var item in Model) 
+    {
+        if (!string.IsNullOrEmpty(item.FirstName))
+        {
+            <table style="height:0px;width:0px">
+                <tr>
+                    <td style="height:100px;width:50px">
+                        @Html.ActionLink(item.FirstName, "Select", new { userId = item.UserId })
+                    </td>
+                </tr>
+            </table>
+        }
+    }
+}
+

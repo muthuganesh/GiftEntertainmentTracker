@@ -130,18 +130,18 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             }
         }
 
-        public static void Update(DepartmentModel division)
+        public static void Update(DepartmentModel department)
         {
             using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
             {
                 MySqlCommand command = new MySqlCommand("SP_tDepartmentUpdate", connection);
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue(@"tDepartmentId", division.DepartmentId);
-                command.Parameters.AddWithValue(@"tDepartmentName", division.DepartmentName);
-                command.Parameters.AddWithValue(@"tPhoneNo", division.PhoneNo);
-                command.Parameters.AddWithValue(@"tFaxNo", division.FaxNo);
-                command.Parameters.AddWithValue(@"tUpdatedBy", division.UpdatedBy);
+                command.Parameters.AddWithValue(@"tDepartmentId", department.DepartmentId);
+                command.Parameters.AddWithValue(@"tDepartmentName", department.DepartmentName);
+                command.Parameters.AddWithValue(@"tPhoneNo", department.PhoneNo);
+                command.Parameters.AddWithValue(@"tFaxNo", department.FaxNo);
+                command.Parameters.AddWithValue(@"tUpdatedBy", department.UpdatedBy);
 
                 connection.Open();
                 command.ExecuteNonQuery();

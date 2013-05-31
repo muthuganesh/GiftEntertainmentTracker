@@ -45,7 +45,7 @@
 
                             grid.Column(header: "Super Admin",
                                     format: @<text>
-                                            <a href="@Url.Action("Create", "SuperAdmin", new { companyId = item.CompanyId })" >
+                                            <a href="@Url.Action("Division", "SuperAdmin", new { companyId = item.CompanyId })" >
                                             <img src="../../Images/Admin.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
                                     </text>),
                                                                       
@@ -61,10 +61,9 @@
                             grid.Column("ZipCode", "Zip Code"),
                             grid.Column("PhoneNo", "Phone Number"),
                             grid.Column("FaxNo", "Fax Number")
-
     )
   )
  </div>
 <p style="margin-left:90%">
     @Html.ActionLink("Back to Main Page", "Index", "Home")
-</p
+</p>
