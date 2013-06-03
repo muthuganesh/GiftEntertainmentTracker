@@ -6,6 +6,10 @@
 
 <h2>Department</h2>
 
+<p>
+    @Html.ActionLink("Create New", "CreateDepartment")
+</p>
+
 @if (Model != null)
 {
       <table style="height:0px;width:0px">
@@ -17,6 +21,7 @@
                 <td style="height:100px;width:50px">
                     @Html.ActionLink(item.DepartmentName, "Users", new { departmentId = item.DepartmentId })
                 </td>
+                <td>&nbsp;</td>
             }
         }
         </tr>

@@ -35,30 +35,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             List<UserModel> users = SuperAdminDAL.GetCompanyProfiles(companyId);
             return View(users);
         } 
-
-        //
-        // POST: /SuperAdmin/Create
-
-        [HttpPost]
-        public ActionResult Create(string companyItems)
-        {
-            int companyId = Convert.ToInt32(Session["companyId"]);
-            string action = null, route = null;
-            if (companyItems == Common.ObjectTypeCode.Divison)
-            {
-                action = "CreateDivision";
-                route = "Division";
-                goto send;
-            }
-            else if (companyItems == Common.ObjectTypeCode.Department)
-            {
-                action = "CreateDepartment";
-                route = "Department";
-                goto send;
-            }
-        send:
-            return RedirectToAction(action, route, new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
-        }
         
         //
         // GET: /SuperAdmin/Edit/5
@@ -115,30 +91,49 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         public ActionResult Division(int companyId)
         {
             List<DivisionModel> divisions = DivisionDAL.GetDivisions(companyId, Common.ObjectTypeCode.Company);
+            Session["CompanyId"] = companyId;
             if (divisions.Count != 0)
                 return View(divisions);
             else
                 return View();
         }
 
+        public ActionResult CreateDivision()
+        {
+            int companyId = Convert.ToInt32(Session["CompanyId"]);
+            return RedirectToAction("CreateDivision", "Division", new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
+        }
+
         public ActionResult Department(int divisionId)
         {
             List<DepartmentModel> departments = DepartmentDAL.GetDepartments(divisionId, Common.ObjectTypeCode.Divison);
-
+            Session["DivisionId"] = divisionId;
             if (departments.Count != 0)
                 return View(departments);
             else
                 return View();
         }
 
+        public ActionResult CreateDepartment()
+        {
+            int divisionId = Convert.ToInt32(Session["DivisionId"]);
+            return RedirectToAction("CreateDepartment", "Department", new { objectId = divisionId, objectTypeCode = Common.ObjectTypeCode.Divison });
+        }
+
         public ActionResult Users(int departmentId)
         {
             List<UserModel> Users = UserDAL.GetUsers(departmentId, Common.ObjectTypeCode.Department);
-
+            Session["DepartmentId"] = departmentId;
             if (Users.Count != 0)
                 return View(Users);
             else
                 return View();
+        }
+
+        public ActionResult CreateUsers()
+        {
+            int departmentId = Convert.ToInt32(Session["DepartmentId"]);
+            return RedirectToAction("CreateUser", "User", new { objectId = departmentId, objectTypeCode = Common.ObjectTypeCode.Department });
         }
     }
 }

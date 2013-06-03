@@ -7,7 +7,7 @@
 <h2>Users</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateUsers")
 </p>
 <h3>Users</h3>
 @if (Model!=null)
@@ -21,6 +21,7 @@
                     <td style="height:100px;width:50px">
                         @Html.ActionLink(item.FirstName, "Select", new { userId = item.UserId })
                     </td>
+                    <td>&nbsp;</td>
                 </tr>
             </table>
         }

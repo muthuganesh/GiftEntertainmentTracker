@@ -7,7 +7,7 @@
 <h2>Division</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "CreateDivision")
 </p>
 @{  
     int i=0;
@@ -17,28 +17,26 @@
             <tr>
                 @foreach (var item in Model) {
                     i++;
-                    if(i%6!=0)
-                    {
-                            if (!string.IsNullOrEmpty(item.DivisionName))
-                            {
-                                <td style="height:100px;width:50px">
-                                    @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
-                                </td>
-                            }
-                    
-                    }
-                    else
+                    if (i % 2 == 0)
                     {
                         if (!string.IsNullOrEmpty(item.DivisionName))
                         {
-                   
+               
                                 <td style="height:100px;width:50px">
+                                @if (item.DivisionName.Length > 8)
+                                {
+                                    string text = string.Format(item.DivisionName.Substring(0, 8) + "..");
+                                    @Html.ActionLink(text, "Department", new { divisionId = item.DivisionId })
+                                }
+                                else
+                                {
                                     @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
+                                }
                                 </td>
                         }
                     }
                 }
-             </tr>
+            </tr>
         </table>
     }
 }

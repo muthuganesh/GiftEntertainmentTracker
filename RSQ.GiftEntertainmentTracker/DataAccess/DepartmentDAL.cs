@@ -277,70 +277,9 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             {
                 string query = string.Format(@"
                     SELECT
-                        tdt.DepartmentId AS DepartmentId,
-                        td.DivisionId AS DivisionId,
-                        tc.CompanyId AS CompanyId,
-                        tc.CompanyName,
-                        td.DivisionName,
-                        tdt.DepartmentName,
-                        tdt.PhoneNo,
-                        tdt.FaxNo,
-                        tdt.ObjectId AS ObjectId,
-                        tdt.ObjectTypeCode AS ObjectTypeCode,
-                        td.ObjectId,
-                        td.ObjectTypeCode,
-                        tdt.AddedBy,
-                        tdt.AddedDate,
-                        tdt.UpdatedBy,
-                        tdt.UpdatedDate
+                        *
                     FROM
                         tDepartment as tdt
-                    INNER JOIN
-                        tDivision as td
-                    ON
-                        tdt.ObjectId=td.DivisionId
-                    AND
-                        tdt.ObjectTypeCode='DV'
-                    INNER JOIN
-                        tCompany as tc
-                    ON
-                        td.ObjectId=tc.CompanyId
-                    AND
-                        td.ObjectTypeCode='CM'
-
-                    UNION ALL
-
-                    SELECT
-                        tdt.DepartmentId AS DepartmentId,
-                        td.DivisionId AS DivisionId,
-                        tc.CompanyId AS CompanyId,
-                        tc.CompanyName,
-                        td.DivisionName,
-                        tdt.DepartmentName,
-                        tdt.PhoneNo,
-                        tdt.FaxNo,
-                        tdt.ObjectId AS ObjectId,
-                        tdt.ObjectTypeCode AS ObjectTypeCode,
-                        td.ObjectId,
-                        td.ObjectTypeCode,
-                        tdt.AddedBy,
-                        tdt.AddedDate,
-                        tdt.UpdatedBy,
-                        tdt.UpdatedDate
-                    FROM
-                        tDepartment as tdt
-                    INNER JOIN
-                        tCompany as tc
-                    ON
-                        tdt.ObjectId=tc.CompanyId
-                    AND
-                        tdt.ObjectTypeCode='CM'
-                    LEFT JOIN
-                        tDivision as td
-                    ON
-                        tdt.ObjectId=td.DivisionId
-                    AND
-                        tdt.ObjectTypeCode='DV'
                     WHERE
                         tdt.ObjectId={0}
                     AND
@@ -358,8 +297,6 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     DepartmentModel department = new DepartmentModel
                     {
                         DepartmentId = Convert.ToInt32(dr["DepartmentId"]),
-                        CompanyName = dr["CompanyName"].ToString().Trim(),
-                        DivisionName = dr["DivisionName"].ToString().Trim(),
                         DepartmentName = dr["DepartmentName"].ToString().Trim(),
                         PhoneNo = dr["PhoneNo"].ToString().Trim(),
                         FaxNo = dr["FaxNo"].ToString().Trim(),

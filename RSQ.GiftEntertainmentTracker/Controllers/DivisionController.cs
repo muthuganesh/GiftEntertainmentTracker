@@ -118,7 +118,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         [HttpPost]
         public ActionResult CreateDivision(DivisionModel division, int objectId,string objectTypeCode)
         {
-
             // TODO: Add insert logic here
             division.ObjectId = objectId;
             division.ObjectTypeCode = ObjectTypeCode.Company;

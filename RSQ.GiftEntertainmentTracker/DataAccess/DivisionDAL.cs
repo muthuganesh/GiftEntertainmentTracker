@@ -218,29 +218,10 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             {
                 string query = string.Format(@"
                         SELECT 
-	                        td.DivisionId,
-	                        tc.CompanyId,
-	                        tc.CompanyName,
-	                        td.DivisionName,
-	                        td.DivisionName,
-	                        td.AddressLine1,
-                            td.AddressLine2,
-                            td.AddressLine3,
-                            td.State,
-                            td.Country,
-                            td.ZipCode,
-	                        td.PhoneNo,
-	                        td.FaxNo,
-	                        td.ObjectId,
-	                        td.ObjectTypeCode,
-	                        td.AddedBy,
-	                        td.UpdatedBy
-
+	                       *
                         FROM 
 	                        tDivision as td 
-                        INNER JOIN
-	                        tCompany as tc
-                        ON
+                        WHERE
 	                        td.ObjectId={0}
 						AND
 							td.ObjectTypeCode='{1}'", objectId,objectTypeCode);
@@ -257,8 +238,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     DivisionModel division = new DivisionModel
                     {
                         DivisionId = Convert.ToInt32(dr["DivisionId"]),
-                        CompanyName = dr["CompanyName"].ToString().Trim(),
-                        DivisionName = dr["DivisionName"].ToString().Trim(),
+                        DivisionName=dr["DivisionName"].ToString().Trim(),
                         AddressLine1 = dr["AddressLine1"].ToString().Trim(),
                         AddressLine2 = dr["AddressLine2"].ToString().Trim(),
                         AddressLine3 = dr["AddressLine3"].ToString().Trim(),
