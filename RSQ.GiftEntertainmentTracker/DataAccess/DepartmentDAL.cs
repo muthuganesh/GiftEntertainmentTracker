@@ -97,6 +97,8 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                 {
                     department.DepartmentId = Convert.ToInt32(dr["DepartmentId"]);
                     department.DepartmentName = dr["DepartmentName"].ToString().Trim();
+                    department.CompanyName = dr["CompanyName"].ToString().Trim();
+                    department.DivisionName = dr["DivisionName"].ToString().Trim();
                     department.PhoneNo = dr["PhoneNo"].ToString().Trim();
                     department.FaxNo = dr["FaxNo"].ToString().Trim();
                     department.ObjectId = Convert.ToInt32(dr["ObjectId"]);

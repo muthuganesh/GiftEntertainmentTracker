@@ -39,9 +39,9 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                     if (Membership.ValidateUser(user.UserName, model.Password))
                     {
                         Session["RegisterUser"] = null;
-                        string role = CurrentUserRole(user);
-                        if (!string.IsNullOrEmpty(role))
-                        {
+                        //string role = CurrentUserRole(user);
+                        //if (!string.IsNullOrEmpty(role))
+                        //{
                             FormsAuthentication.SetAuthCookie(user.UserName, model.RememberMe);
                             if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -52,9 +52,9 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                             {
                                 return RedirectToAction("Index", "Home");
                             }
-                        }
-                        else
-                            ModelState.AddModelError("", "User was not added to roles.");
+                        //}
+                        //else
+                        //    ModelState.AddModelError("", "User was not added to roles.");
                     }
                     else
                     {

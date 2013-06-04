@@ -43,45 +43,44 @@ function ConfirmationBox() {
     var grid = new WebGrid(source: Model,
      defaultSort: "CompanyName",
          rowsPerPage: 25);
+    IEnumerable<WebGridColumn> cols = grid.Columns();
+
+    if (@ViewData["DivisionDelete"].ToString() == RSQ.GiftEntertainmentTracker.Common.ListItem.delete)
+    {
+        cols = cols.Concat(grid.Columns(grid.Column("Delete", format: @<text>
+                                        <a href="@Url.Action("DeleteDivision", "Division", new { divisionId = item.DivisionId })" title="Delete">
+                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                                </text>)));
+    }
+
+    if (@ViewData["DivisionEdit"].ToString() == RSQ.GiftEntertainmentTracker.Common.ListItem.edit)
+    {
+         cols = cols.Concat(grid.Columns(grid.Column("Edit", format: @<text>
+                                
+                                        <a href="@Url.Action("EditDivision", "Division", new { divisionId = item.DivisionId })" title="Edit">
+                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
+                                </text>)));
+    }
+    
+    cols=cols.Concat( grid.Columns(grid.Column("Details",
+                                format: (item) => Html.ActionLink("Details", "DivisionDetails", new { divisionId = item.DivisionId })),
+
+                            grid.Column("Department",
+                                format: (item) => Html.ActionLink(ViewData["DivisionDepartment"].ToString(), "Select", new { divisionId = item.DivisionId })),                
+                                              
+                            grid.Column("CompanyName","Company"),
+                            grid.Column("DivisionName","Division"),
+                            grid.Column("State", "State"),
+                            grid.Column("Country", "Country"),
+                            grid.Column("PhoneNo","Phone Number"),
+                            grid.Column("FaxNo","Fax Number")));
  }
  <div>
   @grid.GetHtml(
       tableStyle: "grid",
       headerStyle: "head",
       alternatingRowStyle: "alt",
-     columns: grid.Columns(
-                            grid.Column(header: ViewData["DivisionDelete"].ToString(), format: @<text>
-                                @if (@ViewData["DivisionDelete"].ToString() == "Delete")
-                                {
-                                        <a href="@Url.Action("DeleteDivision", "Division", new { divisionId = item.DivisionId })" >
-                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
-                                }</text>),
-                            grid.Column(header: ViewData["DivisionEdit"].ToString(), format: @<text>
-                                @if (@ViewData["DivisionEdit"].ToString() == "Edit")
-                                {
-                                        <a href="@Url.Action("EditDivision", "Division", new { divisionId = item.DivisionId })" >
-                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
-                                }</text>),
-
-                            grid.Column(header: "Details",
-                                format: (item) => Html.ActionLink("Details", "DivisionDetails", new { divisionId = item.DivisionId })),
-
-                            grid.Column(header: "Department",
-                                format: (item) => Html.ActionLink(ViewData["DivisionDepartment"].ToString(), "Select", new { divisionId = item.DivisionId })),                
-                                              
-                            grid.Column("CompanyName","Company"),
-                            grid.Column("DivisionName","Division"),
-                            grid.Column("AddressLine1", "Address Line1"),
-                            grid.Column("AddressLine2", "Address Line2"),
-                            grid.Column("AddressLine3", "Address Line3"),
-                            grid.Column("State", "State"),
-                            grid.Column("Country", "Country"),
-                            grid.Column("ZipCode", "Zip Code"),
-                            grid.Column("PhoneNo","Phone Number"),
-                            grid.Column("FaxNo","Fax Number")
-    
-    )
-  )
+     columns: cols)
  </div>
 
 <div style="margin-left:90%">

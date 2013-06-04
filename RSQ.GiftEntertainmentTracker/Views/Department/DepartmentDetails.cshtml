@@ -6,44 +6,36 @@
 
 <h2 style="font-family:Times New Roman;color:Gray;">Department Details</h2>
 
-<fieldset>
-    <legend>DepartmentModel</legend>
+<h3 style="font-family:Calibri;color:Purple" title="Company Name,Division Name">@Html.DisplayFor(model => model.CompanyName),
+@Html.DisplayFor(model => model.DivisionName)</h3>
 
-    <div class="display-label">DepartmentName</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DepartmentName)
-    </div>
+<table style="border-width:medium" title="Department Details">
+        <tr>
+            <td style="width:25%" align="justify">
+                Department Name:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DepartmentName)
+            </td>
+        </tr>
+        <tr>
+             <td style="width:25%" align="justify">
+                Phone No:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PhoneNo)
+            </td>
+        </tr>
+        <tr>
+             <td style="width:25%;" align="justify">
+                Fax No:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FaxNo)
+            </td>
+        </tr>
+    </table>
 
-    <div class="display-label">PhoneNo</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PhoneNo)
-    </div>
-
-    <div class="display-label">FaxNo</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FaxNo)
-    </div>
-
-    <div class="display-label">AddedBy</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AddedBy)
-    </div>
-
-    <div class="display-label">AddedDate</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AddedDate)
-    </div>
-
-    <div class="display-label">UpdatedBy</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UpdatedBy)
-    </div>
-
-    <div class="display-label">UpdatedDate</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UpdatedDate)
-    </div>
-</fieldset>
 <p style="margin-left:90%">
 @if (ViewBag.DepartmentEdit == true)
 {

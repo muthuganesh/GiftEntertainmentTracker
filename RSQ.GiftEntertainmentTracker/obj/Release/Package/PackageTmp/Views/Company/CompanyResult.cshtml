@@ -18,51 +18,53 @@
     var grid = new WebGrid(source: Model,
      defaultSort: "CompanyName",
          rowsPerPage: 25);
-         
+
+    IEnumerable<WebGridColumn> cols = grid.Columns();
+
+    if (@ViewData["CompanyDelete"].ToString() == RSQ.GiftEntertainmentTracker.Common.ListItem.delete)
+    {
+        cols = cols.Concat(grid.Columns(grid.Column("Delete", format: @<text>
+                                        <a href="@Url.Action("DeleteCompany", "Company", new { companyId = item.CompanyId })"  title="Delete">
+                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                                </text>, style: "Delete")));
+    }
+
+    if (@ViewData["CompanyEdit"].ToString() == RSQ.GiftEntertainmentTracker.Common.ListItem.edit)
+    {
+        cols = cols.Concat(grid.Columns(grid.Column("Edit", format: @<text>
+                                        <a href="@Url.Action("EditCompany", "Company", new { companyId = item.CompanyId })" title="Edit">
+                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
+                                </text>)));
+    }
+    
+    if(@ViewData["CompanyDivDep"].ToString()==RSQ.GiftEntertainmentTracker.Common.ListItem.divDep)
+    {                               
+         cols = cols.Concat(grid.Columns(grid.Column("Division or Department",
+                            format: (item) => Html.ActionLink("Division/Department", "Select", new { companyId = item.CompanyId }))));
+    }
+    
+     cols = cols.Concat(grid.Columns(
+        grid.Column("Details",
+                format: (item) => Html.ActionLink("Details", "CompanyDetails", new { companyId = item.CompanyId })),
+
+        grid.Column("Super Admin",
+                format: @<text>
+                        <a href="@Url.Action("Division", "SuperAdmin", new { companyId = item.CompanyId })" title="Super Admin">
+                        <img src="../../Images/Admin.jpg" alt="Super Admin" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                </text>),
+
+        grid.Column("CompanyName", "Company"),
+        grid.Column("State", "State"),
+        grid.Column("Country", "Country"),
+        grid.Column("PhoneNo", "Phone Number"),
+        grid.Column("FaxNo", "Fax Number")));
 }
  <div>
- 
-  @grid.GetHtml(
-      tableStyle: "grid",
+ @grid.GetHtml(
+  tableStyle: "grid",
       headerStyle: "head",
       alternatingRowStyle: "alt",
-     columns: grid.Columns(
-                        grid.Column(header: @ViewData["CompanyDelete"].ToString(), format: @<text>
-                                @if (@ViewData["CompanyDelete"].ToString() == "Delete")
-                                {
-                                        <a href="@Url.Action("DeleteCompany", "Company", new { companyId = item.CompanyId })" >
-                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
-                                }</text>,style:"Delete"),
-                            grid.Column(header: ViewData["CompanyEdit"].ToString(), format: @<text>
-                                @if(@ViewData["CompanyEdit"].ToString()=="Edit")
-                                {
-                                        <a href="@Url.Action("EditCompany", "Company", new { companyId = item.CompanyId })" >
-                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
-                                }</text>),
-                                                                 
-                            grid.Column(header: "Details",
-                                  format: (item) => Html.ActionLink("Details", "CompanyDetails", new { companyId = item.CompanyId })),
-
-                            grid.Column(header: "Super Admin",
-                                    format: @<text>
-                                            <a href="@Url.Action("Division", "SuperAdmin", new { companyId = item.CompanyId })" >
-                                            <img src="../../Images/Admin.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
-                                    </text>),
-                                                                      
-                            grid.Column(header: "Division or Department",
-                                    format: (item) => Html.ActionLink(ViewData["CompanyDivDep"].ToString(), "Select", new { companyId = item.CompanyId })),
-
-                            grid.Column("CompanyName", "Company"),
-                            grid.Column("AddressLine1", "Address Line1"),
-                            grid.Column("AddressLine2", "Address Line2"),
-                            grid.Column("AddressLine3", "Address Line3"),
-                            grid.Column("State", "State"),
-                            grid.Column("Country", "Country"),
-                            grid.Column("ZipCode", "Zip Code"),
-                            grid.Column("PhoneNo", "Phone Number"),
-                            grid.Column("FaxNo", "Fax Number")
-    )
-  )
+               columns: cols)
  </div>
 <p style="margin-left:90%">
     @Html.ActionLink("Back to Main Page", "Index", "Home")

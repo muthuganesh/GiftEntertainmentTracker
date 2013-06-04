@@ -45,31 +45,43 @@ function ConfirmationBox() {
     var grid = new WebGrid(source: Model,
      defaultSort: "UserName",
          rowsPerPage: 25);
+
+    IEnumerable<WebGridColumn> cols = grid.Columns();
+
+    if (ViewData["UserResetPassword"].ToString() == RSQ.GiftEntertainmentTracker.Common.ListItem.resetPassword)
+    {
+        cols=cols.Concat(grid.Columns(
+                            grid.Column("Reset Password",
+                                format: (item) => Html.ActionLink("ResetPassword", "ResetPassword", new { userName = item.UserName }))));
+    }
+    
+    if(ViewData["UserEdit"].ToString()==RSQ.GiftEntertainmentTracker.Common.ListItem.edit)
+    {
+        cols=cols.Concat(grid.Columns(grid.Column("Edit",
+                    format: (item) => Html.ActionLink("Edit", "Edit", new { userName = item.UserName }))));
+    }
+    
+    if(ViewData["UserDelete"].ToString()==RSQ.GiftEntertainmentTracker.Common.ListItem.delete)
+    {
+        cols = cols.Concat(grid.Columns(grid.Column("Delete",
+                                format: (item) => Html.ActionLink("Delete", "Delete", new { userName = item.UserName }))));
+    }
+
+    cols = cols.Concat(grid.Columns(
+                                  grid.Column("UserName", "User Name"),
+                                  grid.Column("Email", "Email Id"),
+                                  grid.Column("Comment"),
+                                  grid.Column("IsApproved", "Approved"),
+                                  grid.Column("IsLockedOut", "Locked Out"),
+                                  grid.Column("IsOnline", "Online")
+    ));
  }
  <div>
   @grid.GetHtml(
       tableStyle: "grid",
       headerStyle: "head",
       alternatingRowStyle: "alt",
-     columns: grid.Columns(
-                            grid.Column(header: "Reset Password",
-                                format: (item) => Html.ActionLink(ViewData["UserResetPassword"].ToString(), "ResetPassword", new { userName = item.UserName })),
-                            
-                            grid.Column(header: "Edit",
-                                format: (item) => Html.ActionLink(ViewData["UserEdit"].ToString(), "Edit", new { userName = item.UserName })),
-
-                            grid.Column(header: "Delete",
-                                format: (item) => Html.ActionLink(ViewData["UserDelete"].ToString(), "Delete", new { userName = item.UserName })),               
-                                              
-                                  grid.Column("UserName", "User Name"),
-                                  grid.Column("Email","Email Id"),
-                                  grid.Column("Comment"),
-                                  grid.Column("IsApproved","Approved"),
-                                  grid.Column("IsLockedOut","Locked Out"),
-                                  grid.Column("IsOnline","Online")
-    
-    )
-  )
+      columns: cols)
  </div>
 
 <div style="margin-left:90%">

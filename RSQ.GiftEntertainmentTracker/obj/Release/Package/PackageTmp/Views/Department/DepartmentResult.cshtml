@@ -38,38 +38,40 @@ function ConfirmationBox() {
     var grid = new WebGrid(source: Model,
      defaultSort: "CompanyName",
          rowsPerPage: 25);
+
+    IEnumerable<WebGridColumn> cols = grid.Columns();
+
+    if (@ViewData["DepartmentDelete"].ToString() == RSQ.GiftEntertainmentTracker.Common.ListItem.delete)
+    {
+        cols = cols.Concat(grid.Columns(grid.Column("Delete", format: @<text>
+                        <a href="@Url.Action("DeleteDepartment", "Department", new { departmentId = item.DepartmentId })" title="Delete">
+                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                        </text>)));
+    }
+
+    if (@ViewData["DepartmentEdit"].ToString() == RSQ.GiftEntertainmentTracker.Common.ListItem.edit)
+    {
+        cols = cols.Concat(grid.Columns(grid.Column("Edit", format: @<text>
+                          <a href="@Url.Action("EditDepartment", "Department", new { departmentId = item.DepartmentId })" title="Edit">
+                          <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
+                          </text>)));
+    }
+
+    cols = cols.Concat(grid.Columns(grid.Column("Details",
+                                  format: (item) => Html.ActionLink("Details", "DepartmentDetails", new { departmentId = item.DepartmentId })),
+
+                            grid.Column("CompanyName", "Company"),
+                            grid.Column("DivisionName", "Division"),
+                            grid.Column("DepartmentName", "Department"),
+                            grid.Column("PhoneNo", "Phone Number"),
+                            grid.Column("FaxNo", "Fax Number")));
  }
  <div>
   @grid.GetHtml(
       tableStyle: "grid",
       headerStyle: "head",
       alternatingRowStyle: "alt",
-     columns: grid.Columns(
-                            grid.Column(header: ViewData["DepartmentDelete"].ToString(), format: @<text>
-                                @if (@ViewData["DepartmentDelete"].ToString() == "Delete")
-                                {
-                                        <a href="@Url.Action("DeleteDepartment", "Department", new { departmentId = item.DepartmentId })" >
-                                        <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
-                                }</text>),
-                            grid.Column(header: ViewData["DepartmentEdit"].ToString(), format: @<text>
-                                @if (@ViewData["DepartmentEdit"].ToString() == "Edit")
-                                {
-                                        <a href="@Url.Action("EditDepartment", "Department", new { departmentId = item.DepartmentId })" >
-                                        <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
-                                }</text>),
-
-                            grid.Column(header: "Details",
-                                  format: (item) => Html.ActionLink("Details", "DepartmentDetails", new { departmentId = item.DepartmentId })),
-
-                            grid.Column("CompanyName","Company"),
-                            grid.Column("DivisionName","Division"),
-                            grid.Column("DepartmentName", "Department"),
-                            grid.Column("PhoneNo","Phone Number"),
-                            grid.Column("FaxNo","Fax Number")
-    
-    )
-  )
-
+     columns: cols)
 </div>
 <div style="margin-left:90%">
 @Html.ActionLink("Back to Main Page", "Index", "Home")

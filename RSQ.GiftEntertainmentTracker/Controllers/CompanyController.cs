@@ -9,6 +9,7 @@ using System.Data;
 using System.Web.Security;
 using RSQ.GiftEntertainmentTracker.DataAccess;
 using RSQ.GiftEntertainmentTracker.Security;
+using RSQ.GiftEntertainmentTracker.Common;
 
 namespace RSQ.GiftEntertainmentTracker.Controllers
 {
@@ -88,7 +89,12 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 // TODO: Add insert logic here
             company.AddedBy = User.Identity.Name;
             DataAccess.CompanyDAL.Insert(company);
-
+            string userName = User.Identity.Name;
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var user=Membership.GetUser(userName);
+                SuperAdminGenerator.Mail(user.Email.ToString(), "http://23.21.244.58/SuperAdmin/Division?companyId=11");
+            }
             return RedirectToAction("CompanyResult");
         }
         

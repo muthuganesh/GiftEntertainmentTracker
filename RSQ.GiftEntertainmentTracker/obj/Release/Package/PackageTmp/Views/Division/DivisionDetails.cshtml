@@ -6,60 +6,71 @@
 
 <h2 style="font-family:Times New Roman;color:Gray;">Division Details</h2>
 
-<fieldset>
-    <legend>DivisionModel</legend>
+<h3 style="font-family:Calibri;color:Purple" title="Company Name">@Html.DisplayFor(model => model.CompanyName)</h3>
 
-    <div class="display-label">DivisionName</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DivisionName)
-    </div>
+<table style="border-width:medium" title="Division Details">
+        <tr>
+            <td style="width:25%" align="justify">
+                Division Name:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DivisionName)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:25%" align="justify">
+                Address:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.AddressLine1)
+                <br />
+                @Html.DisplayFor(model => model.AddressLine2)
+                <br />
+                @Html.DisplayFor(model => model.AddressLine3)
+            </td>
+        </tr>
+        <tr>
+             <td style="width:25%" align="justify">
+                State:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.State)
+            </td>
+        </tr>
+        <tr>
+             <td style="width:25%" align="justify">
+                Country:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Country)
+            </td>
+        </tr>
+        <tr>
+             <td style="width:25%" align="justify">
+                Zip Code:
+            </td>
+            <td>
+                 @Html.DisplayFor(model => model.ZipCode)
+            </td>
+        </tr>
+        <tr>
+             <td style="width:25%" align="justify">
+                Phone No:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PhoneNo)
+            </td>
+        </tr>
+        <tr>
+             <td style="width:25%;" align="justify">
+                Fax No:
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.FaxNo)
+            </td>
+        </tr>
+    </table>
 
-    <div class="display-label">Address</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AddressLine1)
-        <br />
-        @Html.DisplayFor(model => model.AddressLine2)
-        <br />
-        @Html.DisplayFor(model => model.AddressLine3)
-    </div>
-
-
-    <div class="display-label">State</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.State)
-    </div>
-
-    <div class="display-label">Country</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Country)
-    </div>
-
-    <div class="display-label">Zip Code</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ZipCode)
-    </div>
-
-    <div class="display-label">PhoneNo</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.PhoneNo)
-    </div>
-
-    <div class="display-label">FaxNo</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FaxNo)
-    </div>
-
-    <div class="display-label">AddedBy</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AddedBy)
-    </div>
-
-    <div class="display-label">UpdatedBy</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.UpdatedBy)
-    </div>
-
-</fieldset>
 <p style="margin-left:90%">
 @if (ViewBag.DivisionEdit == true)
 {

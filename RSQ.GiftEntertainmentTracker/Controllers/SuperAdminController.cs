@@ -8,6 +8,7 @@ using RSQ.GiftEntertainmentTracker.DataAccess;
 
 namespace RSQ.GiftEntertainmentTracker.Controllers
 {
+    [Authorize]
     public class SuperAdminController : Controller
     {
         //
