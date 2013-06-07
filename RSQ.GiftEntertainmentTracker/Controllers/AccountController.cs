@@ -42,16 +42,16 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                         //string role = CurrentUserRole(user);
                         //if (!string.IsNullOrEmpty(role))
                         //{
-                            FormsAuthentication.SetAuthCookie(user.UserName, model.RememberMe);
-                            if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                            {
-                                return Redirect(returnUrl);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Home");
-                            }
+                        FormsAuthentication.SetAuthCookie(user.UserName, model.RememberMe);
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                         //}
                         //else
                         //    ModelState.AddModelError("", "User was not added to roles.");
@@ -110,13 +110,13 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 //UserProfileModel userprofile;
                 MembershipCreateStatus createStatus;
                 Membership.CreateUser(model.Name, model.Password, model.Email, null, null, true, null, out createStatus);
-                
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    //FormsAuthentication.SetAuthCookie(model.Name, false /* createPersistentCookie */);
-                    Session["RegisterUser"] = "<script>alert('User was Registered.To add you into a role,it takes some time Wait for it')</script>";
+                    FormsAuthentication.SetAuthCookie(model.Name, false /* createPersistentCookie */);
+                    //Session["RegisterUser"] = "<script>alert('User was Registered.To add you into a role,it takes some time Wait for it')</script>";
                     //return RedirectToAction("Index", "Home");
-                    return RedirectToAction("LogOn", "Account");
+                    return RedirectToAction("CreateUser", "Profile");
+                    //return RedirectToAction("LogOn", "Account");
                 }
                 else
                 {

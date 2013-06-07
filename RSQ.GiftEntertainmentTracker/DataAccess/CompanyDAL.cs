@@ -143,7 +143,9 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                             Fax,
                             AddedBy
                         FROM
-                            tCompany");
+                            tCompany
+                        WHERE
+                            AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 

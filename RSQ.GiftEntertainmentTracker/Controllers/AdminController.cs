@@ -16,6 +16,7 @@ using RSQ.GiftEntertainmentTracker.Controllers;
 using RSQ.GiftEntertainmentTracker.Common;
 using RSQ.GiftEntertainmentTracker.DataAccess;
 using RSQ.GiftEntertainmentTracker.Security;
+using System.Web.Profile;
 
 namespace Rsq.UserProfileManagement.Controllers
 {
@@ -199,8 +200,11 @@ namespace Rsq.UserProfileManagement.Controllers
         public ActionResult Delete(MembershipModel member)
         {
             string userName = member.UserName.ToString().Trim();
-            if (userName != null)
+            if (!string.IsNullOrEmpty(userName) && member.IsOnline==false)
+            {
+                ProfileManager.DeleteProfile(userName);
                 Membership.DeleteUser(userName);
+            }
             return RedirectToAction("Index");
         }
 

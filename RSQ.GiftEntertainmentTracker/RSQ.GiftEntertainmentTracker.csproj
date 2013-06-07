@@ -38,19 +38,20 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Data, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySQL.NET.6.6.4\lib\net40\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.Entity, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="mysql.data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MySQL.Data.Entities.6.5.4.0\lib\net40\MySql.Data.Entity.dll</HintPath>
+      <HintPath>..\Dllfiles\v4\mysql.data.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data.entity, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dllfiles\v4\mysql.data.entity.dll</HintPath>
     </Reference>
     <Reference Include="mysql.visualstudio">
-      <HintPath>..\Dllfiles\mysql.visualstudio.dll</HintPath>
+      <HintPath>..\Dllfiles\v4\mysql.visualstudio.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Web, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="mysql.web, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MySQL.NET.6.6.4\lib\net40\MySql.Web.dll</HintPath>
+      <HintPath>..\Dllfiles\v4\mysql.web.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity">
       <Private>True</Private>
@@ -86,6 +87,8 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DivisionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileCommon.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\RolePermissionSetModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Security\AdminPermission.cs" />
     <Compile Include="Security\CompanyPermission.cs" />
     <Compile Include="Security\DepartmentPermission.cs" />
@@ -231,7 +235,6 @@
     <Content Include="Views\Department\DepartmentDetails.cshtml" />
     <Content Include="Views\Department\CreateDepartment.cshtml" />
     <Content Include="Views\Department\EditDepartment.cshtml" />
-    <Content Include="Views\User\UserResult.cshtml" />
     <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\User\EditUser.cshtml" />
     <Content Include="Views\User\UserDetails.cshtml" />
@@ -244,12 +247,15 @@
     <Content Include="Views\Role\EditRole.cshtml" />
     <Content Include="Views\Role\RoleUserList.cshtml" />
     <Content Include="Views\Role\RolePermission.cshtml" />
-    <Content Include="Views\Company\Select1.cshtml" />
     <Content Include="Views\Company\CreateCompany.cshtml" />
     <Content Include="Views\SuperAdmin\SuperAdminResult.cshtml" />
     <Content Include="Views\SuperAdmin\Department.cshtml" />
     <Content Include="Views\SuperAdmin\Users.cshtml" />
     <Content Include="Views\SuperAdmin\Division.cshtml" />
+    <Content Include="Views\Profile\CreateUser.cshtml" />
+    <Content Include="Views\User\UserResult.cshtml" />
+    <Content Include="Views\Profile\UserDetails.cshtml" />
+    <Content Include="Views\Profile\EditUser.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />

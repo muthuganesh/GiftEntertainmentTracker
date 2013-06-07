@@ -174,7 +174,9 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         ON
 	                        td.ObjectId=tc.CompanyId
 						AND
-							td.ObjectTypeCode='CM'");
+							td.ObjectTypeCode='CM'
+                        WHERE
+                            td.AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 

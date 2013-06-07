@@ -205,6 +205,8 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         td.ObjectId=tc.CompanyId
                     AND
                         td.ObjectTypeCode='CM'
+                    WHERE
+                        td.AddedBy='{0}'
 
                     UNION ALL
 
@@ -238,7 +240,9 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     ON
                         tdt.ObjectId=td.DivisionId
                     AND
-                        tdt.ObjectTypeCode='DV'");
+                        tdt.ObjectTypeCode='DV'
+                    WHERE
+                        td.AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 

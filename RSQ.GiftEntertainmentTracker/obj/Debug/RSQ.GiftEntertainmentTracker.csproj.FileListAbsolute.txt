@@ -51,10 +51,6 @@ D:\r\RSQ.GiftEntertainmentTracker\obj\Debug\RSQ.GiftEntertainmentTracker.pdb
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\RSQ.GiftEntertainmentTracker.dll
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\RSQ.GiftEntertainmentTracker.pdb
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\EntityFramework.dll
-E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\MySql.Data.dll
-E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\MySql.Data.Entity.dll
-E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\mysql.visualstudio.dll
-E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\MySql.Web.dll
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\RSQ.GiftEntertainmentTracker.Common.dll
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\System.Data.dll
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\System.Data.Entity.dll
@@ -66,3 +62,4 @@ E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\obj\Debug\Interop.C
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\obj\Debug\RSQ.GiftEntertainmentTracker.csproj.ResolveComReference.cache
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\obj\Debug\RSQ.GiftEntertainmentTracker.dll
 E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\obj\Debug\RSQ.GiftEntertainmentTracker.pdb
+E:\RSQ.GiftEntertainmentTracker\RSQ.GiftEntertainmentTracker\bin\mysql.visualstudio.dll
