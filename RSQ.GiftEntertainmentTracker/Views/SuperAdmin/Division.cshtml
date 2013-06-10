@@ -32,6 +32,7 @@
                                 {
                                     @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
                                 }
+                                @Html.ActionLink("Delete", "DeleteDivision", new { divisionId = item.DivisionId })
                                 </td>
                         }
                     }

@@ -151,9 +151,15 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             return RedirectToAction("DepartmentResult");
         }
 
-        public ActionResult DepartmentUser(int objectId)
+        //public ActionResult DepartmentUser(int objectId)
+        //{
+        //    return RedirectToAction("CreateUser", "User", new { objectId = objectId, objectTypeCode = Common.ObjectTypeCode.Department });
+        //}
+
+
+        public ActionResult DepartmentUsers(int departmentId)
         {
-            return RedirectToAction("CreateUser", "User", new { objectId = objectId, objectTypeCode = Common.ObjectTypeCode.Department });
+            return RedirectToAction("CreateUser", "User", new { objectId = departmentId, objectTypeCode = Common.ObjectTypeCode.Department });
         }
     }
 }

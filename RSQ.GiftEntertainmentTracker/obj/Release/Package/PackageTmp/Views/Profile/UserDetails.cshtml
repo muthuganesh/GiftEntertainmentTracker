@@ -1,0 +1,60 @@
+﻿@model RSQ.GiftEntertainmentTracker.Models.Users
+
+@{
+    ViewBag.Title = "UserDetails";
+}
+
+<h2>UserDetails</h2>
+
+<fieldset>
+    <legend>Users</legend>
+
+    <div class="display-label">FirstName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">LastName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">AddressLine1</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddressLine1)
+    </div>
+
+    <div class="display-label">AddressLine2</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AddressLine2)
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">State</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.State)
+    </div>
+
+    <div class="display-label">Country</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Country)
+    </div>
+
+    <div class="display-label">ZipCode</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ZipCode)
+    </div>
+
+    <div class="display-label">PhoneNo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNo)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "EditUser") |
+    @Html.ActionLink("Back to List", "Index")
+</p>

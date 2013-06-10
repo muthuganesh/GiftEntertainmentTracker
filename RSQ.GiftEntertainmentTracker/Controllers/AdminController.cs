@@ -122,9 +122,9 @@ namespace Rsq.UserProfileManagement.Controllers
         //
         // GET: /Admin/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(string userName)
         {
-            return View();
+            return RedirectToAction("UserDetails", "Profile", new { userName = userName });
         }
 
         //

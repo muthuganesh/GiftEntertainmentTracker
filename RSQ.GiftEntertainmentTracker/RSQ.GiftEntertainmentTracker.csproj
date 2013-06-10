@@ -40,18 +40,19 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="mysql.data, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dllfiles\v4\mysql.data.dll</HintPath>
+      <HintPath>..\Dllfiles\mysql.data.dll</HintPath>
     </Reference>
     <Reference Include="mysql.data.entity, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dllfiles\v4\mysql.data.entity.dll</HintPath>
+      <HintPath>..\Dllfiles\mysql.data.entity.dll</HintPath>
     </Reference>
-    <Reference Include="mysql.visualstudio">
-      <HintPath>..\Dllfiles\v4\mysql.visualstudio.dll</HintPath>
+    <Reference Include="mysql.visualstudio, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dllfiles\mysql.visualstudio.dll</HintPath>
     </Reference>
     <Reference Include="mysql.web, Version=6.6.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dllfiles\v4\mysql.web.dll</HintPath>
+      <HintPath>..\Dllfiles\mysql.web.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity">
       <Private>True</Private>
@@ -322,7 +323,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4824</DevelopmentServerPort>
+          <DevelopmentServerPort>3572</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:4824/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

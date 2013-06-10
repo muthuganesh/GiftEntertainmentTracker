@@ -22,10 +22,11 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         //
         // GET: /Profile/Details/5
 
-        public ActionResult UserDetails()
+        public ActionResult UserDetails(string userName)
         {
             Users user = new Users();
-            if (ProfileCommon.Create(HttpContext.User.Identity.Name.ToString()) as ProfileCommon == null)
+            if (ProfileCommon.Create(HttpContext.User.Identity.Name.ToString()) as ProfileCommon == null ||
+                ProfileCommon.Create(userName) as ProfileCommon == null)
                 return View(user);
             else
             {

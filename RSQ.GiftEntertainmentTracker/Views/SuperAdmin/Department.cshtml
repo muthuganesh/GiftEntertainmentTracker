@@ -20,6 +20,7 @@
             {
                 <td style="height:100px;width:50px">
                     @Html.ActionLink(item.DepartmentName, "Users", new { departmentId = item.DepartmentId })
+                    @Html.ActionLink("Delete", "DeleteDepartment", new { departmentId = item.DepartmentId })
                 </td>
                 <td>&nbsp;</td>
             }

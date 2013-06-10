@@ -105,6 +105,11 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             return RedirectToAction("CreateDivision", "Division", new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
         }
 
+        public ActionResult DeleteDivision(int divisionId)
+        {
+            return RedirectToAction("DeleteDivision", "Division", new { divisionId = divisionId });
+        }
+
         public ActionResult Department(int divisionId)
         {
             List<DepartmentModel> departments = DepartmentDAL.GetDepartments(divisionId, Common.ObjectTypeCode.Divison);
@@ -119,6 +124,11 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         {
             int divisionId = Convert.ToInt32(Session["DivisionId"]);
             return RedirectToAction("CreateDepartment", "Department", new { objectId = divisionId, objectTypeCode = Common.ObjectTypeCode.Divison });
+        }
+
+        public ActionResult DeleteDepartment(int departmentId)
+        {
+            return RedirectToAction("DeleteDepartment", "Department", new { departmentId = departmentId });
         }
 
         public ActionResult Users(int departmentId)

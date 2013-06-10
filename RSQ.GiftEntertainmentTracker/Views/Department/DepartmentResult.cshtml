@@ -56,6 +56,9 @@ function ConfirmationBox() {
                           <img src="../../Images/Edit.png" alt="Edit" style="border:none;width:25px;height:25px;padding-left:10px;" /></a>
                           </text>)));
     }
+    
+    cols = cols.Concat(grid.Columns(grid.Column("Add Users",
+                                  format: (item) => Html.ActionLink("Users", "DepartmentUsers", new { departmentId = item.DepartmentId }))));
 
     cols = cols.Concat(grid.Columns(grid.Column("Details",
                                   format: (item) => Html.ActionLink("Details", "DepartmentDetails", new { departmentId = item.DepartmentId })),

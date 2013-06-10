@@ -67,6 +67,9 @@ function ConfirmationBox() {
                                 format: (item) => Html.ActionLink("Delete", "Delete", new { userName = item.UserName }))));
     }
 
+    cols = cols.Concat(grid.Columns(grid.Column("Details",
+                                format: (item) => Html.ActionLink("Details", "Details", new { userName = item.UserName }))));
+
     cols = cols.Concat(grid.Columns(
                                   grid.Column("UserName", "User Name"),
                                   grid.Column("Email", "Email Id"),
