@@ -13,15 +13,8 @@
     @Html.Raw((string)Session["RegisterUser"])
 </div>
 
-<div id="logOnValidation">
-    @Html.ValidationSummary(true, "Login was unsuccessful. Please try again.")
-</div>
-
 @using (Html.BeginForm()) {
     <div id="logOnDisplay">
-        <p>
-            @Html.ActionLink("Register", "Register") if you don't have an account.
-        </p>
         <fieldset>
             <legend>Account Information</legend>
 
@@ -53,5 +46,16 @@
                     Forgot password. @Html.ActionLink("Click Here","ForgotPassword", "Account") to generate New Password.
             </p>
         </fieldset>
+    </div>
+    <div id="logOnDisplaytext">
+        <p>
+            Forgot password. @Html.ActionLink("Click Here", "ForgotPassword", "Account") to generate New Password.
+        </p>
+        <p>
+            @Html.ActionLink("Register", "Register") if you don't have an account.
+        </p>
+        <p id="logOnValidation">
+            @Html.ValidationSummary(true, "Login was unsuccessful. Please try again.")
+        </p>
     </div>
 }

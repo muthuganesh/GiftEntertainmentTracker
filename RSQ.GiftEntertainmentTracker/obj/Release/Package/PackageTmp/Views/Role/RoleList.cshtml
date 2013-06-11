@@ -14,25 +14,30 @@
     var grid = new WebGrid(source: Model.Role,
      defaultSort: "Role",
          rowsPerPage: 25);
+
+    IEnumerable<WebGridColumn> cols = grid.Columns();
+
+    cols = cols.Concat(grid.Columns(grid.Column("Delete",
+                        format: (item) => (Html.ActionLink("Delete", "DeleteRole", new { roleName = item.Value })))));
+    cols = cols.Concat(grid.Columns(grid.Column("Edit",
+                        format: (item) => (Html.ActionLink("Edit", "EditRole", new { roleName = item.Value })))));
+
+    cols = cols.Concat(grid.Columns(grid.Column("Users",
+                        format: (item) => (Html.ActionLink("Users", "RoleUserList", new { roleName = item.Value })))));
+
+    cols = cols.Concat(grid.Columns(grid.Column("Permission",
+                        format: (item) => (Html.ActionLink("Permission", "RolePermission", new { roleName = item.Value })))));
+
+    cols = cols.Concat(grid.Columns(
+                        grid.Column((format: (item) => new HtmlString(item.Value)))));
+    
  }
  <div>
   @grid.GetHtml(
       tableStyle: "grid",
       headerStyle: "head",
       alternatingRowStyle: "alt",
-     columns: grid.Columns(
-                            grid.Column(header: "Delete/Edit",
-                         style: "text-align-center",
-                             format: (item) => new
-                                          HtmlString(Html.ActionLink("Delete", "DeleteRole", new { roleName = item.Value }) + "|" +
-                                                           Html.ActionLink("Edit", "EditRole", new { roleName = item.Value }) + "|" +
-                                                                      Html.ActionLink("Users", "RoleUserList", new { roleName = item.Value }) + "|" +
-                                                                       Html.ActionLink("Permission", "RolePermission", new { roleName = item.Value })
-                                                    )
-                                        ),
-                                  grid.Column(format: (item) => new HtmlString(item.Value))
-
-    )
+     columns: cols
   )
  </div>
 <p style="margin-left:90%">

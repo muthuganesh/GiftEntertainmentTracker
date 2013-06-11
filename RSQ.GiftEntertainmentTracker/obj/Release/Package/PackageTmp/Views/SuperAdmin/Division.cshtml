@@ -13,29 +13,46 @@
     int i=0;
     if (Model != null)
     {
-        <table style="height:0px;width:0px">
+        <table>
             <tr>
-                @foreach (var item in Model) {
-                    i++;
-                    if (i % 2 == 0)
+                @foreach (var item in Model)
+                {
+                    <td style='height:100px;width:50px'>
+                    @if (i % 6 == 0)
                     {
                         if (!string.IsNullOrEmpty(item.DivisionName))
                         {
-               
-                                <td style="height:100px;width:50px">
-                                @if (item.DivisionName.Length > 8)
-                                {
-                                    string text = string.Format(item.DivisionName.Substring(0, 8) + "..");
-                                    @Html.ActionLink(text, "Department", new { divisionId = item.DivisionId })
-                                }
-                                else
-                                {
-                                    @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
-                                }
-                                @Html.ActionLink("Delete", "DeleteDivision", new { divisionId = item.DivisionId })
-                                </td>
+                            if (item.DivisionName.Length > 8)
+                            {
+                                string text = string.Format(item.DivisionName.Substring(0, 8) + "..");
+                                @Html.ActionLink(text, "Department", new { divisionId = item.DivisionId })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
+                            }
+                            @Html.ActionLink("Delete", "DeleteDivision", new { divisionId = item.DivisionId })
+                            i++;
                         }
                     }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(item.DivisionName))
+                        {
+                            if (item.DivisionName.Length > 8)
+                            {
+                                string text = string.Format(item.DivisionName.Substring(0, 8) + "..");
+                                @Html.ActionLink(text, "Department", new { divisionId = item.DivisionId })
+                            }
+                            else
+                            {
+                                @Html.ActionLink(item.DivisionName, "Department", new { divisionId = item.DivisionId })
+                            }
+                            @Html.ActionLink("Delete", "DeleteDivision", new { divisionId = item.DivisionId })
+                            i++;
+                        }
+                    }
+                    </td>
                 }
             </tr>
         </table>
