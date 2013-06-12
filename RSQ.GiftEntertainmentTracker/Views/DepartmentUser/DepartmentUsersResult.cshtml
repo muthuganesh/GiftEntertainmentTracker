@@ -1,0 +1,79 @@
+﻿@model IEnumerable<RSQ.GiftEntertainmentTracker.Models.DepartmentUserModel>
+
+@{
+    ViewBag.Title = "DepartmentUsersResult";
+}
+
+<h2>DepartmentUsersResult</h2>
+
+<script type="text/javascript">
+
+function ConfirmationBox() {
+
+    var e = document.getElementById("UserName");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser == 0) {
+        alert("Select a User");
+    return false;
+    }
+}
+
+</script>
+
+@using (Html.BeginForm("DepartmentUsersResult", "DepartmentUser", FormMethod.Post))
+{
+    <fieldset style="width:400px;">
+        <legend>Search User</legend>
+            <div> 
+                <h5>User Name:@Html.DropDownList("UserName", "Select user")</h5>
+            </div>
+            <div style="margin-left:70%;">
+                <input type="submit" value="Add User"  onclick="javascript:return ConfirmationBox();"/>
+            </div>
+    </fieldset> 
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+     <th>
+            CompanyName
+        </th>
+        <th>
+            DivisionName
+        </th>
+        <th>
+            DepartmentName
+        </th>
+        <th>
+            UserName
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DivisionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

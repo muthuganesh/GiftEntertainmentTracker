@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using RSQ.GiftEntertainmentTracker.Models;
 using RSQ.GiftEntertainmentTracker.DataAccess;
+using System.Web.Security;
 
 namespace RSQ.GiftEntertainmentTracker.Controllers
 {
@@ -14,10 +15,10 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         //
         // GET: /SuperAdmin/
 
-        public ActionResult SuperAdminResult(int companyId)
+        public ActionResult SuperAdminResult()
         {
-            List<UserModel> users = SuperAdminDAL.GetCompanyProfiles(companyId);
-            return View(users);
+            //List<UserModel> users = SuperAdminDAL.GetCompanyProfiles(companyId);
+            return View();
         }
 
         //
@@ -33,8 +34,8 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult Create(int companyId)
         {
-            List<UserModel> users = SuperAdminDAL.GetCompanyProfiles(companyId);
-            return View(users);
+            //List<UserModel> users = SuperAdminDAL.GetCompanyProfiles(companyId);
+            return View();
         } 
         
         //
@@ -133,18 +134,30 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult Users(int departmentId)
         {
-            List<UserModel> Users = UserDAL.GetUsers(departmentId, Common.ObjectTypeCode.Department);
-            Session["DepartmentId"] = departmentId;
-            if (Users.Count != 0)
-                return View(Users);
-            else
-                return View();
+            //List<UserModel> Users = UserDAL.GetUsers(departmentId, Common.ObjectTypeCode.Department);
+            //Session["DepartmentId"] = departmentId;
+            //BindUserList();
+            //if (Users.Count != 0)
+            //    return View(Users);
+            //else
+            //    return View();
+            return View();
         }
 
         public ActionResult CreateUsers()
         {
             int departmentId = Convert.ToInt32(Session["DepartmentId"]);
             return RedirectToAction("CreateUser", "User", new { objectId = departmentId, objectTypeCode = Common.ObjectTypeCode.Department });
+        }
+
+        void BindUserList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (MembershipUser m in Membership.GetAllUsers())
+            {
+                items.Add(new SelectListItem { Text = m.UserName, Value = m.UserName });
+            }
+            ViewBag.UserName = items;
         }
     }
 }

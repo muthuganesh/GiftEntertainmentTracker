@@ -9,7 +9,35 @@
 <p>
     @Html.ActionLink("Create New", "CreateUsers")
 </p>
-<h3>Users</h3>
+
+<script type="text/javascript">
+
+function ConfirmationBox() {
+
+    var e = document.getElementById("UserName");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if (strUser == 0) {
+        alert("Select a User");
+    return false;
+    }
+}
+
+</script>
+
+@using (Html.BeginForm("SuperAdminResult", "SuperAdmin", FormMethod.Post))
+{
+    <fieldset style="width:400px;">
+        <legend>Search User</legend>
+            <div> 
+                <h5>User Name:@Html.DropDownList("UserName", "Select user")</h5>
+            </div>
+            <div style="margin-left:70%;">
+                <input type="submit" value="Add User"  onclick="javascript:return ConfirmationBox();"/>
+            </div>
+    </fieldset> 
+}
+
 @if (Model!=null)
 {
     foreach (var item in Model) 
