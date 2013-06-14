@@ -248,12 +248,12 @@
     <Content Include="Views\Company\CreateCompany.cshtml" />
     <Content Include="Views\SuperAdmin\SuperAdminResult.cshtml" />
     <Content Include="Views\SuperAdmin\Department.cshtml" />
-    <Content Include="Views\SuperAdmin\Users.cshtml" />
     <Content Include="Views\SuperAdmin\Division.cshtml" />
     <Content Include="Views\Profile\CreateUser.cshtml" />
     <Content Include="Views\Profile\UserDetails.cshtml" />
     <Content Include="Views\Profile\EditUser.cshtml" />
     <Content Include="Views\DepartmentUser\DepartmentUsersResult.cshtml" />
+    <Content Include="Views\SuperAdmin\Users.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
@@ -264,7 +264,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\DepartmentUsers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

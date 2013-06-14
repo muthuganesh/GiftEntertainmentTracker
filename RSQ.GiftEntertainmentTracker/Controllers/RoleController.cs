@@ -81,8 +81,8 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         {
             if (Roles.RoleExists(newroleName))
             {
-                ViewData["Role"] = "<script>alert('Role Name already exist');</script>";
-                return View();
+                //ViewData["Role"] = "<script>alert('Role Name already exist');</script>";
+                return Content("<script language='javascript' type='text/javascript'>alert('Cannot Edit Super Admin');</script>");
             }
             else
             {
@@ -103,8 +103,13 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult DeleteRole(string roleName)
         {
-            Roles.DeleteRole(roleName);
-            return RedirectToAction("RoleList");
+            if (roleName == "Super Admin")
+                return Content("<script language='javascript' type='text/javascript'>alert('Cannot Delete Super Admin');</script>");
+            else
+            {
+                Roles.DeleteRole(roleName);
+                return RedirectToAction("RoleList");
+            }
         }
 
         public ActionResult RoleUserList(string roleName)

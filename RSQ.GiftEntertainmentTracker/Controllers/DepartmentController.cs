@@ -47,8 +47,16 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 ViewData["DepartmentEdit"] = string.Format(Common.ListItem.edit);
                 ViewData["DepartmentDelete"] = string.Format(Common.ListItem.delete);
             }
+            int? objectId = Convert.ToInt32(Session["ObjectId"]);
+            List<DepartmentModel> department = new List<DepartmentModel>();
 
-            List<DepartmentModel> department = DataAccess.DepartmentDAL.GetDepartments();
+
+            if (objectId.HasValue && objectId != 0)
+                department = DataAccess.DepartmentDAL.GetDepartments(objectId, Common.ObjectTypeCode.Divison);
+            else
+                department = DataAccess.DepartmentDAL.GetDepartments(null, null);
+
+            Session["ObjectId"] = null;
 
             BindCompanyList();
 
@@ -58,7 +66,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         [HttpPost]
         public ActionResult DepartmentResult(string company)
         {
-
             if(!string.IsNullOrEmpty(company))
             {
             // TODO: Add insert logic here
@@ -68,7 +75,7 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             }
             else
             {
-                List<DepartmentModel> department = DataAccess.DepartmentDAL.GetDepartments();
+                List<DepartmentModel> department = DataAccess.DepartmentDAL.GetDepartments(null,null);
 
                 BindCompanyList();
 
@@ -153,7 +160,8 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult DepartmentUsers(int departmentId)
         {
-            return RedirectToAction("DepartmentUsersResult", "DepartmentUser", new { objectId = departmentId });
+            Session["ObjectId"] = departmentId;
+            return RedirectToAction("DepartmentUsersResult", "DepartmentUser");
         }
 
         

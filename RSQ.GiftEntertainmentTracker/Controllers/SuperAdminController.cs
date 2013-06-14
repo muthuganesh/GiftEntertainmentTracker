@@ -92,12 +92,27 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult Division(int companyId)
         {
-            List<DivisionModel> divisions = DivisionDAL.GetDivisions(companyId, Common.ObjectTypeCode.Company);
-            Session["CompanyId"] = companyId;
-            if (divisions.Count != 0)
-                return View(divisions);
-            else
-                return View();
+            //List<DivisionModel> divisions = DivisionDAL.GetDivisions(companyId, Common.ObjectTypeCode.Company);
+            //Session["CompanyId"] = companyId;
+            //if (divisions.Count != 0)
+            //    return View(divisions);
+            //else
+            //    return View();
+
+            BindCompanies();
+            Session["ObjectId"] = companyId;
+            return RedirectToAction("DivisionResult", "Division");
+        }
+
+        private void BindCompanies()
+        {
+            List<CompanyModel> compaines = CompanyDAL.GetCompanies();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (CompanyModel c in compaines)
+            {
+                items.Add(new SelectListItem { Text = c.CompanyName, Value = c.CompanyId.ToString() });
+            }
+            ViewBag.Company = items;
         }
 
         public ActionResult CreateDivision()
@@ -113,12 +128,14 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult Department(int divisionId)
         {
-            List<DepartmentModel> departments = DepartmentDAL.GetDepartments(divisionId, Common.ObjectTypeCode.Divison);
-            Session["DivisionId"] = divisionId;
-            if (departments.Count != 0)
-                return View(departments);
-            else
-                return View();
+            //List<DepartmentModel> departments = DepartmentDAL.GetDepartments(divisionId, Common.ObjectTypeCode.Divison);
+            //Session["DivisionId"] = divisionId;
+            //if (departments.Count != 0)
+            //    return View(departments);
+            //else
+            BindCompanies();
+            Session["ObjectId"] = divisionId;
+            return RedirectToAction("DepartmentResult", "Department");
         }
 
         public ActionResult CreateDepartment()
@@ -134,14 +151,9 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult Users(int departmentId)
         {
-            //List<UserModel> Users = UserDAL.GetUsers(departmentId, Common.ObjectTypeCode.Department);
-            //Session["DepartmentId"] = departmentId;
-            //BindUserList();
-            //if (Users.Count != 0)
-            //    return View(Users);
-            //else
-            //    return View();
-            return View();
+            List<DepartmentUserModel> departmentUsers = DataAccess.DepartmentUserDAL.GetDepartmentUsers(departmentId, Common.ObjectTypeCode.Department);
+            BindUserList();
+            return View(departmentUsers);
         }
 
         public ActionResult CreateUsers()

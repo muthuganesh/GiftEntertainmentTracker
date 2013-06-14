@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using RSQ.GiftEntertainmentTracker.Models;
 using MySql.Data.MySqlClient;
+using System.Text;
 
 namespace RSQ.GiftEntertainmentTracker.DataAccess
 {
@@ -166,15 +167,20 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             }
         }
 
-        public static List<DepartmentModel> GetDepartments()
+        public static List<DepartmentModel> GetDepartments(int? objectId,string objectTypeCode)
         {
             DataTable table = new DataTable();
             List<DepartmentModel> departments = new List<DepartmentModel>();
+            StringBuilder codeBuilder = new StringBuilder();
+            string sAnd = " AND ";
 
             using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
             {
                 string query = string.Format(@"
-                    SELECT
+                    (SELECT
+                        *
+                    FROM
+                    (SELECT
                         tdt.DepartmentId AS DepartmentId,
                         td.DivisionId AS DivisionId,
                         tc.CompanyId AS CompanyId,
@@ -185,8 +191,8 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         tdt.FaxNo,
                         tdt.ObjectId AS ObjectId,
                         tdt.ObjectTypeCode AS ObjectTypeCode,
-                        td.ObjectId,
-                        td.ObjectTypeCode,
+                        td.ObjectId AS DivisionObjectId,
+                        td.ObjectTypeCode AS DivisionObjectTypeCode,
                         tdt.AddedBy,
                         tdt.AddedDate,
                         tdt.UpdatedBy,
@@ -205,8 +211,6 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         td.ObjectId=tc.CompanyId
                     AND
                         td.ObjectTypeCode='CM'
-                    WHERE
-                        td.AddedBy='{0}'
 
                     UNION ALL
 
@@ -221,8 +225,8 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         tdt.FaxNo,
                         tdt.ObjectId AS ObjectId,
                         tdt.ObjectTypeCode AS ObjectTypeCode,
-                        td.ObjectId,
-                        td.ObjectTypeCode,
+                        td.ObjectId AS DivisionObjectId,
+                        td.ObjectTypeCode AS DivisionObjectTypeCode,
                         tdt.AddedBy,
                         tdt.AddedDate,
                         tdt.UpdatedBy,
@@ -240,9 +244,28 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     ON
                         tdt.ObjectId=td.DivisionId
                     AND
-                        tdt.ObjectTypeCode='DV'
-                    WHERE
-                        td.AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
+                        tdt.ObjectTypeCode='DV') X
+                    WHERE <<<includeSql>>>) ORDER BY AddedDate DESC");
+
+                if(objectId.HasValue)
+                {
+                    codeBuilder.AppendFormat("ObjectId={0}",objectId);
+                    codeBuilder.AppendFormat(sAnd);
+                }
+                if(!string.IsNullOrEmpty(objectTypeCode))
+                {
+                    codeBuilder.AppendFormat("ObjectTypeCode='{0}'",objectTypeCode);
+                    codeBuilder.AppendFormat(sAnd);
+                }
+
+                codeBuilder.AppendFormat("AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
+
+                if (!string.IsNullOrEmpty(codeBuilder.ToString().Trim()))
+                    query = query.Replace("<<<includeSql>>>", codeBuilder.ToString().Trim());
+                else
+                    query = query.Replace("WHERE <<<includeSql>>>", codeBuilder.ToString().Trim());
+
+                query = query.ToString().Trim();
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -274,155 +297,155 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             return departments;
         }
 
-        public static List<DepartmentModel> GetDepartments(int objectId, string objectTypeCode)
-        {
-            DataTable table = new DataTable();
-            List<DepartmentModel> departments = new List<DepartmentModel>();
+//        public static List<DepartmentModel> GetDepartments(int objectId, string objectTypeCode)
+//        {
+//            DataTable table = new DataTable();
+//            List<DepartmentModel> departments = new List<DepartmentModel>();
 
-            using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
-            {
-                string query = string.Format(@"
-                    SELECT
-                        *
-                    FROM
-                        tDepartment as tdt
-                    WHERE
-                        tdt.ObjectId={0}
-                    AND
-                        tdt.ObjectTypeCode='{1}'",objectId,objectTypeCode);
+//            using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
+//            {
+//                string query = string.Format(@"
+//                    SELECT
+//                        *
+//                    FROM
+//                        tDepartment as tdt
+//                    WHERE
+//                        tdt.ObjectId={0}
+//                    AND
+//                        tdt.ObjectTypeCode='{1}'",objectId,objectTypeCode);
 
-                MySqlCommand command = new MySqlCommand(query, connection);
+//                MySqlCommand command = new MySqlCommand(query, connection);
 
-                connection.Open();
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                adapter.Fill(table);
-                connection.Close();
+//                connection.Open();
+//                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+//                adapter.Fill(table);
+//                connection.Close();
 
-                foreach (DataRow dr in table.Rows)
-                {
-                    DepartmentModel department = new DepartmentModel
-                    {
-                        DepartmentId = Convert.ToInt32(dr["DepartmentId"]),
-                        DepartmentName = dr["DepartmentName"].ToString().Trim(),
-                        PhoneNo = dr["PhoneNo"].ToString().Trim(),
-                        FaxNo = dr["FaxNo"].ToString().Trim(),
-                        ObjectId = Convert.ToInt32(dr["ObjectId"]),
-                        ObjectTypeCode = dr["ObjectTypeCode"].ToString().Trim(),
-                        AddedBy = dr["AddedBy"].ToString().Trim(),
-                        AddedDate = Convert.ToDateTime(dr["AddedDate"]),
-                        UpdatedBy = dr["UpdatedBy"].ToString().Trim(),
-                        UpdatedDate = Convert.ToDateTime(dr["UpdatedDate"])
-                    };
-                    departments.Add(department);
-                }
-            }
-            return departments;
-        }
+//                foreach (DataRow dr in table.Rows)
+//                {
+//                    DepartmentModel department = new DepartmentModel
+//                    {
+//                        DepartmentId = Convert.ToInt32(dr["DepartmentId"]),
+//                        DepartmentName = dr["DepartmentName"].ToString().Trim(),
+//                        PhoneNo = dr["PhoneNo"].ToString().Trim(),
+//                        FaxNo = dr["FaxNo"].ToString().Trim(),
+//                        ObjectId = Convert.ToInt32(dr["ObjectId"]),
+//                        ObjectTypeCode = dr["ObjectTypeCode"].ToString().Trim(),
+//                        AddedBy = dr["AddedBy"].ToString().Trim(),
+//                        AddedDate = Convert.ToDateTime(dr["AddedDate"]),
+//                        UpdatedBy = dr["UpdatedBy"].ToString().Trim(),
+//                        UpdatedDate = Convert.ToDateTime(dr["UpdatedDate"])
+//                    };
+//                    departments.Add(department);
+//                }
+//            }
+//            return departments;
+//        }
 
-        public static List<DepartmentModel> GetDepartments(int companyId)
-        {
-            DataTable table = new DataTable();
-            List<DepartmentModel> departments = new List<DepartmentModel>();
+//        public static List<DepartmentModel> GetDepartments(int companyId)
+//        {
+//            DataTable table = new DataTable();
+//            List<DepartmentModel> departments = new List<DepartmentModel>();
 
-            using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
-            {
-                string query = string.Format(@"
-                    SELECT
-                        tdt.DepartmentId AS DepartmentId,
-                        td.DivisionId AS DivisionId,
-                        tc.CompanyId AS CompanyId,
-                        tc.CompanyName,
-                        td.DivisionName,
-                        tdt.DepartmentName,
-                        tdt.PhoneNo,
-                        tdt.FaxNo,
-                        tdt.ObjectId AS ObjectId,
-                        tdt.ObjectTypeCode AS ObjectTypeCode,
-                        td.ObjectId,
-                        td.ObjectTypeCode,
-                        tdt.AddedBy,
-                        tdt.AddedDate,
-                        tdt.UpdatedBy,
-                        tdt.UpdatedDate
-                    FROM
-                        tDepartment as tdt
-                    INNER JOIN
-                        tDivision as td
-                    ON
-                        tdt.ObjectId=td.DivisionId
-                    AND
-                        tdt.ObjectTypeCode='DV'
-                    INNER JOIN
-                        tCompany as tc
-                    ON
-                        td.ObjectId=tc.CompanyId
-                    AND
-                        td.ObjectTypeCode='CM'
+//            using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
+//            {
+//                string query = string.Format(@"
+//                    SELECT
+//                        tdt.DepartmentId AS DepartmentId,
+//                        td.DivisionId AS DivisionId,
+//                        tc.CompanyId AS CompanyId,
+//                        tc.CompanyName,
+//                        td.DivisionName,
+//                        tdt.DepartmentName,
+//                        tdt.PhoneNo,
+//                        tdt.FaxNo,
+//                        tdt.ObjectId AS ObjectId,
+//                        tdt.ObjectTypeCode AS ObjectTypeCode,
+//                        td.ObjectId,
+//                        td.ObjectTypeCode,
+//                        tdt.AddedBy,
+//                        tdt.AddedDate,
+//                        tdt.UpdatedBy,
+//                        tdt.UpdatedDate
+//                    FROM
+//                        tDepartment as tdt
+//                    INNER JOIN
+//                        tDivision as td
+//                    ON
+//                        tdt.ObjectId=td.DivisionId
+//                    AND
+//                        tdt.ObjectTypeCode='DV'
+//                    INNER JOIN
+//                        tCompany as tc
+//                    ON
+//                        td.ObjectId=tc.CompanyId
+//                    AND
+//                        td.ObjectTypeCode='CM'
+//
+//                    UNION ALL
+//
+//                    SELECT
+//                        tdt.DepartmentId AS DepartmentId,
+//                        td.DivisionId AS DivisionId,
+//                        tc.CompanyId AS CompanyId,
+//                        tc.CompanyName,
+//                        td.DivisionName,
+//                        tdt.DepartmentName,
+//                        tdt.PhoneNo,
+//                        tdt.FaxNo,
+//                        tdt.ObjectId AS ObjectId,
+//                        tdt.ObjectTypeCode AS ObjectTypeCode,
+//                        td.ObjectId,
+//                        td.ObjectTypeCode,
+//                        tdt.AddedBy,
+//                        tdt.AddedDate,
+//                        tdt.UpdatedBy,
+//                        tdt.UpdatedDate
+//                    FROM
+//                        tDepartment as tdt
+//                    INNER JOIN
+//                        tCompany as tc
+//                    ON
+//                        tdt.ObjectId=tc.CompanyId
+//                    AND
+//                        tdt.ObjectTypeCode='CM'
+//                    LEFT JOIN
+//                        tDivision as td
+//                    ON
+//                        tdt.ObjectId=td.DivisionId
+//                    AND
+//                        tdt.ObjectTypeCode='DV'
+//                    WHERE
+//                        tdt.ObjectId={0}", companyId);
 
-                    UNION ALL
+//                MySqlCommand command = new MySqlCommand(query, connection);
 
-                    SELECT
-                        tdt.DepartmentId AS DepartmentId,
-                        td.DivisionId AS DivisionId,
-                        tc.CompanyId AS CompanyId,
-                        tc.CompanyName,
-                        td.DivisionName,
-                        tdt.DepartmentName,
-                        tdt.PhoneNo,
-                        tdt.FaxNo,
-                        tdt.ObjectId AS ObjectId,
-                        tdt.ObjectTypeCode AS ObjectTypeCode,
-                        td.ObjectId,
-                        td.ObjectTypeCode,
-                        tdt.AddedBy,
-                        tdt.AddedDate,
-                        tdt.UpdatedBy,
-                        tdt.UpdatedDate
-                    FROM
-                        tDepartment as tdt
-                    INNER JOIN
-                        tCompany as tc
-                    ON
-                        tdt.ObjectId=tc.CompanyId
-                    AND
-                        tdt.ObjectTypeCode='CM'
-                    LEFT JOIN
-                        tDivision as td
-                    ON
-                        tdt.ObjectId=td.DivisionId
-                    AND
-                        tdt.ObjectTypeCode='DV'
-                    WHERE
-                        tdt.ObjectId={0}", companyId);
+//                connection.Open();
+//                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+//                adapter.Fill(table);
+//                connection.Close();
 
-                MySqlCommand command = new MySqlCommand(query, connection);
-
-                connection.Open();
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                adapter.Fill(table);
-                connection.Close();
-
-                foreach (DataRow dr in table.Rows)
-                {
-                    DepartmentModel department = new DepartmentModel
-                    {
-                        DepartmentId = Convert.ToInt32(dr["DepartmentId"]),
-                        CompanyName = dr["CompanyName"].ToString().Trim(),
-                        DivisionName = dr["DivisionName"].ToString().Trim(),
-                        DepartmentName = dr["DepartmentName"].ToString().Trim(),
-                        PhoneNo = dr["PhoneNo"].ToString().Trim(),
-                        FaxNo = dr["FaxNo"].ToString().Trim(),
-                        ObjectId = Convert.ToInt32(dr["ObjectId"]),
-                        ObjectTypeCode = dr["ObjectTypeCode"].ToString().Trim(),
-                        AddedBy = dr["AddedBy"].ToString().Trim(),
-                        AddedDate = Convert.ToDateTime(dr["AddedDate"]),
-                        UpdatedBy = dr["UpdatedBy"].ToString().Trim(),
-                        UpdatedDate = Convert.ToDateTime(dr["UpdatedDate"])
-                    };
-                    departments.Add(department);
-                }
-            }
-            return departments;
-        }
+//                foreach (DataRow dr in table.Rows)
+//                {
+//                    DepartmentModel department = new DepartmentModel
+//                    {
+//                        DepartmentId = Convert.ToInt32(dr["DepartmentId"]),
+//                        CompanyName = dr["CompanyName"].ToString().Trim(),
+//                        DivisionName = dr["DivisionName"].ToString().Trim(),
+//                        DepartmentName = dr["DepartmentName"].ToString().Trim(),
+//                        PhoneNo = dr["PhoneNo"].ToString().Trim(),
+//                        FaxNo = dr["FaxNo"].ToString().Trim(),
+//                        ObjectId = Convert.ToInt32(dr["ObjectId"]),
+//                        ObjectTypeCode = dr["ObjectTypeCode"].ToString().Trim(),
+//                        AddedBy = dr["AddedBy"].ToString().Trim(),
+//                        AddedDate = Convert.ToDateTime(dr["AddedDate"]),
+//                        UpdatedBy = dr["UpdatedBy"].ToString().Trim(),
+//                        UpdatedDate = Convert.ToDateTime(dr["UpdatedDate"])
+//                    };
+//                    departments.Add(department);
+//                }
+//            }
+//            return departments;
+//        }
     }
 }

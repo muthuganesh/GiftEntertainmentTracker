@@ -39,9 +39,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                     if (Membership.ValidateUser(user.UserName, model.Password))
                     {
                         Session["RegisterUser"] = null;
-                        //string role = CurrentUserRole(user);
-                        //if (!string.IsNullOrEmpty(role))
-                        //{
                         FormsAuthentication.SetAuthCookie(user.UserName, model.RememberMe);
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -52,9 +49,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                         {
                             return RedirectToAction("Index", "Home");
                         }
-                        //}
-                        //else
-                        //    ModelState.AddModelError("", "User was not added to roles.");
                     }
                     else
                     {
@@ -67,17 +61,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
 
-        }
-
-        private string CurrentUserRole(MembershipUser user)
-        {
-            string rle=null;
-            foreach (string role in Roles.GetRolesForUser(user.UserName))
-            {
-                ViewData["CurrentUserRole"] = role;
-                rle = role;
-            }
-            return rle;
         }
 
         //
@@ -112,11 +95,15 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 Membership.CreateUser(model.Name, model.Password, model.Email, null, null, true, null, out createStatus);
                 if (createStatus == MembershipCreateStatus.Success)
                 {
+                    string userName = model.Name;
+
+                    string roleName = "Super Admin";
+                    if (!Roles.RoleExists(roleName))
+                        Roles.CreateRole(roleName);
+                    AddUserToRoles(userName, roleName);
+
                     FormsAuthentication.SetAuthCookie(model.Name, false /* createPersistentCookie */);
-                    //Session["RegisterUser"] = "<script>alert('User was Registered.To add you into a role,it takes some time Wait for it')</script>";
-                    //return RedirectToAction("Index", "Home");
                     return RedirectToAction("CreateUser", "Profile");
-                    //return RedirectToAction("LogOn", "Account");
                 }
                 else
                 {
@@ -125,6 +112,18 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             }
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private void AddUserToRoles(string userName, string roleName)
+        {
+            string[] roles = null;
+            if (userName != null)
+            {
+                roles = Roles.GetRolesForUser(userName);
+                if (roles != null && roles.Length > 0)
+                    Roles.RemoveUserFromRoles(userName, roles);
+            }
+            Roles.AddUserToRole(userName, roleName);
         }
 
         //

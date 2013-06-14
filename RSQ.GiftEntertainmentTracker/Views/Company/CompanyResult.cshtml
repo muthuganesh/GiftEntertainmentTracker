@@ -42,16 +42,10 @@
          cols = cols.Concat(grid.Columns(grid.Column("Division or Department",
                             format: (item) => Html.ActionLink("Division/Department", "Select", new { companyId = item.CompanyId }))));
     }
-    
+                            
      cols = cols.Concat(grid.Columns(
         grid.Column("Details",
                 format: (item) => Html.ActionLink("Details", "CompanyDetails", new { companyId = item.CompanyId })),
-
-        grid.Column("Super Admin",
-                format: @<text>
-                        <a href="@Url.Action("Division", "SuperAdmin", new { companyId = item.CompanyId })" title="Super Admin">
-                        <img src="../../Images/Admin.jpg" alt="Super Admin" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
-                </text>),
 
         grid.Column("CompanyName", "Company"),
         grid.Column("State", "State"),

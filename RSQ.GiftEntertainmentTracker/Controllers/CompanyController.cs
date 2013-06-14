@@ -89,14 +89,35 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 // TODO: Add insert logic here
             company.AddedBy = User.Identity.Name;
             DataAccess.CompanyDAL.Insert(company);
-            string userName = User.Identity.Name;
-            if (!string.IsNullOrEmpty(userName))
-            {
-                var user=Membership.GetUser(userName);
-                SuperAdminGenerator.Mail(user.Email.ToString(), "http://23.21.244.58/SuperAdmin/Division?companyId=11");
-            }
+
+            //string userName = User.Identity.Name;
+
+            //string roleName = "Super Admin";
+            //if (Roles.RoleExists(roleName))
+            //{
+            //    AddUserToRoles(userName, roleName);
+            //}
+            //else
+            //{
+            //    Roles.CreateRole(roleName);
+            //    AddUserToRoles(userName, roleName);
+            //}
+            //var user=Membership.GetUser(userName);
+            //SuperAdminGenerator.Mail(user.Email.ToString(), "http://23.21.244.58/SuperAdmin/Division?companyId=11");
             return RedirectToAction("CompanyResult");
         }
+
+        //private void AddUserToRoles(string userName, string roleName)
+        //{
+        //    string[] roles = null;
+        //    if (userName != null)
+        //    {
+        //        roles = Roles.GetRolesForUser(userName);
+        //        if (roles != null && roles.Length > 0)
+        //            Roles.RemoveUserFromRoles(userName, roles);
+        //    }
+        //    Roles.AddUserToRole(userName, roleName);
+        //}
         
         //
         // GET: /Company/Edit/5
@@ -128,29 +149,24 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         public ActionResult DeleteCompany(int companyId)
         {
-            List<DepartmentModel> departments = DataAccess.DepartmentDAL.GetDepartments(companyId);
+            List<DepartmentModel> departments = DataAccess.DepartmentDAL.GetDepartments(companyId,Common.ObjectTypeCode.Company);
+
             foreach (var d in departments)
             {
                 DataAccess.DepartmentDAL.Delete(d.DepartmentId);
             }
-
-            //foreach (var d in departments.Select(o=>o.ObjectId).Distinct())
-            //{
-            //        DataAccess.DivisionDAL.Delete(d);
-
-            //}
 
             foreach (var d in departments)
             {
                 DataAccess.DivisionDAL.Delete(d.DivisionId);
             }
 
-            foreach (var d in departments)
+            departments = DataAccess.DepartmentDAL.GetDepartments(companyId, Common.ObjectTypeCode.Company);
+            if (departments.Count == 0)
             {
-                DataAccess.CompanyDAL.Delete(d.CompanyId);
-
+                DataAccess.CompanyDAL.Delete(companyId);
             }
-            DataAccess.CompanyDAL.Delete(companyId);
+
             return RedirectToAction("CompanyResult");
         }
 
@@ -185,16 +201,5 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             send:
             return RedirectToAction(action, route, new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
         }
-
-        //public ActionResult Select1(int companyId)
-        //{
-        //    List<SelectListItem> items = new List<SelectListItem>();
-        //    items.Add(new SelectListItem { Text = Common.ListItem.division, Value = Common.ObjectTypeCode.Divison });
-        //    items.Add(new SelectListItem { Text = Common.ListItem.department, Value = Common.ObjectTypeCode.Department });
-        //    ViewBag.companyItems = items;
-        //    Session["companyId"] = companyId;
-        //    return PartialView();
-        //    //RedirectToAction("CreateDivision", "Division", new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
-        //}
     }
 }

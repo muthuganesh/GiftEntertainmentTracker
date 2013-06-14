@@ -13,11 +13,10 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         //
         // GET: /DepartmentUsers/
 
-        public ActionResult DepartmentUsersResult(int objectId)
+        public ActionResult DepartmentUsersResult()
         {
             List<DepartmentUserModel> departmentUsers = DataAccess.DepartmentUserDAL.GetDepartmentUsers();
             BindDepartmentUsers();
-            Session["ObjectId"] = objectId;
             return View(departmentUsers);
         }
 
@@ -36,7 +35,7 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         {
             int departmentId = Convert.ToInt32(Session["ObjectId"]);
             DepartmentUserModel departmentUser = new DepartmentUserModel();
-            List<DepartmentUserModel> departmentUsers = DataAccess.DepartmentUserDAL.GetDepartmentUsers();
+            
             if (!string.IsNullOrEmpty(userName))
             {
                 departmentUser.UserName = userName;
@@ -47,15 +46,16 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             }
 
             BindDepartmentUsers();
+            List<DepartmentUserModel> departmentUsers = DataAccess.DepartmentUserDAL.GetDepartmentUsers();
             return View(departmentUsers);
         }
 
         //
         // GET: /DepartmentUsers/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult DepartmentUsersDetails(string userName)
         {
-            return View();
+            return RedirectToAction("UserDetails", "Profile", new { userName = userName });
         }
 
         //
@@ -111,29 +111,12 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         }
 
         //
-        // GET: /DepartmentUsers/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
         // POST: /DepartmentUsers/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DepartmentUsers(int userId)
         {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            DataAccess.DepartmentUserDAL.Delete(userId);
+            return RedirectToAction("DepartmentUsersResult");
         }
     }
 }

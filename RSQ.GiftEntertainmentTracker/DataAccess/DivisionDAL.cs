@@ -5,6 +5,7 @@ using System.Web;
 using RSQ.GiftEntertainmentTracker.Models;
 using System.Data;
 using MySql.Data.MySqlClient;
+using System.Text;
 
 namespace RSQ.GiftEntertainmentTracker.DataAccess
 {
@@ -141,14 +142,19 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             }
         }
 
-        public static List<DivisionModel> GetDivisions()
+        public static List<DivisionModel> GetDivisions(int? objectId, string objectTypeCode)
         {
             DataTable table = new DataTable();
             List<DivisionModel> divisions = new List<DivisionModel>();
-
+            StringBuilder codeBuilder=new StringBuilder();
+            string sAnd=" And ";
             using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
             {
                 string query = string.Format(@"
+                        (SELECT
+                            *
+                        FROM
+                        (
                         SELECT 
 	                        td.DivisionId,
 	                        tc.CompanyId,
@@ -165,6 +171,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
 	                        td.ObjectId,
 	                        td.ObjectTypeCode,
 	                        td.AddedBy,
+                            td.AddedDate,
 	                        td.UpdatedBy
 
                         FROM 
@@ -174,9 +181,30 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         ON
 	                        td.ObjectId=tc.CompanyId
 						AND
-							td.ObjectTypeCode='CM'
-                        WHERE
-                            td.AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
+							td.ObjectTypeCode='CM') X
+                        WHERE <<<includeSql>>>) ORDER BY AddedDate DESC");
+                        
+                if(objectId.HasValue)
+                {
+                    codeBuilder.AppendFormat("ObjectId={0}",objectId);
+                    codeBuilder.AppendFormat(sAnd);
+                }
+                if(!string.IsNullOrEmpty(objectTypeCode))
+                {
+                    codeBuilder.AppendFormat("ObjectTypeCode='{0}'",objectTypeCode);
+                    codeBuilder.AppendFormat(sAnd);
+                }
+
+                codeBuilder.AppendFormat("AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
+
+                if(!string.IsNullOrEmpty(codeBuilder.ToString().Trim()))
+                {
+                    query=query.Replace("<<<includeSql>>>",codeBuilder.ToString().Trim());
+                }
+                else
+                    query=query.Replace("WHERE <<<includeSql>>>",codeBuilder.ToString().Trim());
+
+                query=query.ToString();
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -203,6 +231,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         ObjectId = Convert.ToInt32(dr["ObjectId"]),
                         ObjectTypeCode = dr["ObjectTypeCode"].ToString().Trim(),
                         AddedBy = dr["AddedBy"].ToString().Trim(),
+                        AddedDate = Convert.ToDateTime(dr["AddedDate"]),
                         UpdatedBy = dr["UpdatedBy"].ToString().Trim()
                     };
                     divisions.Add(division);
@@ -211,53 +240,53 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             return divisions;
         }
 
-        public static List<DivisionModel> GetDivisions(int objectId,string objectTypeCode)
-        {
-            DataTable table = new DataTable();
-            List<DivisionModel> divisions = new List<DivisionModel>();
+//        public static List<DivisionModel> GetDivisions(int objectId,string objectTypeCode)
+//        {
+//            DataTable table = new DataTable();
+//            List<DivisionModel> divisions = new List<DivisionModel>();
 
-            using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
-            {
-                string query = string.Format(@"
-                        SELECT 
-	                       *
-                        FROM 
-	                        tDivision as td 
-                        WHERE
-	                        td.ObjectId={0}
-						AND
-							td.ObjectTypeCode='{1}'", objectId,objectTypeCode);
+//            using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
+//            {
+//                string query = string.Format(@"
+//                        SELECT 
+//	                       *
+//                        FROM 
+//	                        tDivision as td 
+//                        WHERE
+//	                        td.ObjectId={0}
+//						AND
+//							td.ObjectTypeCode='{1}'", objectId,objectTypeCode);
 
-                MySqlCommand command = new MySqlCommand(query, connection);
+//                MySqlCommand command = new MySqlCommand(query, connection);
 
-                connection.Open();
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                adapter.Fill(table);
-                connection.Close();
+//                connection.Open();
+//                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+//                adapter.Fill(table);
+//                connection.Close();
 
-                foreach (DataRow dr in table.Rows)
-                {
-                    DivisionModel division = new DivisionModel
-                    {
-                        DivisionId = Convert.ToInt32(dr["DivisionId"]),
-                        DivisionName=dr["DivisionName"].ToString().Trim(),
-                        AddressLine1 = dr["AddressLine1"].ToString().Trim(),
-                        AddressLine2 = dr["AddressLine2"].ToString().Trim(),
-                        AddressLine3 = dr["AddressLine3"].ToString().Trim(),
-                        State = dr["State"].ToString().Trim(),
-                        Country = dr["Country"].ToString().Trim(),
-                        ZipCode = dr["ZipCode"].ToString().Trim(),
-                        PhoneNo = dr["PhoneNo"].ToString().Trim(),
-                        FaxNo = dr["FaxNo"].ToString().Trim(),
-                        ObjectId = Convert.ToInt32(dr["ObjectId"]),
-                        ObjectTypeCode = dr["ObjectTypeCode"].ToString().Trim(),
-                        AddedBy = dr["AddedBy"].ToString().Trim(),
-                        UpdatedBy = dr["UpdatedBy"].ToString().Trim()
-                    };
-                    divisions.Add(division);
-                }
-            }
-            return divisions;
-        }
+//                foreach (DataRow dr in table.Rows)
+//                {
+//                    DivisionModel division = new DivisionModel
+//                    {
+//                        DivisionId = Convert.ToInt32(dr["DivisionId"]),
+//                        DivisionName=dr["DivisionName"].ToString().Trim(),
+//                        AddressLine1 = dr["AddressLine1"].ToString().Trim(),
+//                        AddressLine2 = dr["AddressLine2"].ToString().Trim(),
+//                        AddressLine3 = dr["AddressLine3"].ToString().Trim(),
+//                        State = dr["State"].ToString().Trim(),
+//                        Country = dr["Country"].ToString().Trim(),
+//                        ZipCode = dr["ZipCode"].ToString().Trim(),
+//                        PhoneNo = dr["PhoneNo"].ToString().Trim(),
+//                        FaxNo = dr["FaxNo"].ToString().Trim(),
+//                        ObjectId = Convert.ToInt32(dr["ObjectId"]),
+//                        ObjectTypeCode = dr["ObjectTypeCode"].ToString().Trim(),
+//                        AddedBy = dr["AddedBy"].ToString().Trim(),
+//                        UpdatedBy = dr["UpdatedBy"].ToString().Trim()
+//                    };
+//                    divisions.Add(division);
+//                }
+//            }
+//            return divisions;
+//        }
     }
 }

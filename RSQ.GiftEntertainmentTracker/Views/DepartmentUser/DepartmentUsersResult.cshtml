@@ -4,7 +4,7 @@
     ViewBag.Title = "DepartmentUsersResult";
 }
 
-<h2>DepartmentUsersResult</h2>
+
 
 <script type="text/javascript">
 
@@ -37,43 +37,35 @@ function ConfirmationBox() {
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
-    <tr>
-     <th>
-            CompanyName
-        </th>
-        <th>
-            DivisionName
-        </th>
-        <th>
-            DepartmentName
-        </th>
-        <th>
-            UserName
-        </th>
-        <th></th>
-    </tr>
+<h2>Department Users Result</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DivisionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+@{
+    var grid = new WebGrid(source: Model,
+        defaultSort: "CompanyName",
+        rowsPerPage: 25);
+
+    IEnumerable<WebGridColumn> cols = grid.Columns();
+    
+    cols=cols.Concat(grid.Columns(grid.Column("Delete", format: @<text>
+                                    <a href="@Url.Action("DepartmentUsers", "DepartmentUser", new { userId = item.UserId })"  title="Delete">
+                                    <img src="../../Images/Delete.jpg" alt="Delete" style="border:none;width:25px;height:25px;padding-left:25px;" /></a>
+                                </text>, style: "Delete")));
+    
+    cols = cols.Concat(grid.Columns(
+         grid.Column("Details",
+                 format: (item) => Html.ActionLink("Details", "DepartmentUsersDetails", new { userName = item.UserName }))));
+
+    cols = cols.Concat(grid.Columns(         
+        grid.Column("CompanyName", "Company"),
+        grid.Column("DivisionName", "Division"),
+        grid.Column("DepartmentName", "Department"),
+        grid.Column("UserName", "User Name")));
+
 }
-
-</table>
+<div>
+    @grid.GetHtml(
+            tableStyle:"grid",
+            headerStyle:"head",
+            alternatingRowStyle:"alt",
+            columns: cols);
+</div>

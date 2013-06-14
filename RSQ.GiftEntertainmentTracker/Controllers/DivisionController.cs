@@ -55,8 +55,23 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 ViewData["DivisionDepartment"] = string.Format(Common.ListItem.department);
             }
 
-            List<DivisionModel> divisions = DataAccess.DivisionDAL.GetDivisions();
+            int? objectId=Convert.ToInt32(Session["ObjectId"]);
 
+            List<DivisionModel> divisions = new List<DivisionModel>();
+
+            if (objectId.HasValue && objectId!=0)
+                divisions = DataAccess.DivisionDAL.GetDivisions(objectId, Common.ObjectTypeCode.Company);
+            else
+                divisions = DataAccess.DivisionDAL.GetDivisions(null, null);
+
+            Session["ObjectId"] = null;
+            BindCompanies();
+            
+            return View(divisions);
+        }
+
+        private void BindCompanies()
+        {
             List<CompanyModel> compaines = CompanyDAL.GetCompanies();
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (CompanyModel c in compaines)
@@ -64,8 +79,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 items.Add(new SelectListItem { Text = c.CompanyName, Value = c.CompanyId.ToString() });
             }
             ViewBag.Company = items;
-      
-            return View(divisions);
         }
 
         [HttpPost]
@@ -81,15 +94,10 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             }
             else
             {
-                List<DivisionModel> divisions = DataAccess.DivisionDAL.GetDivisions();
+                List<DivisionModel> divisions = DataAccess.DivisionDAL.GetDivisions(null, null);
 
-                List<CompanyModel> compaines = CompanyDAL.GetCompanies();
-                List<SelectListItem> items = new List<SelectListItem>();
-                foreach (CompanyModel c in compaines)
-                {
-                    items.Add(new SelectListItem { Text = c.CompanyName, Value = c.CompanyId.ToString() });
-                }
-                ViewBag.Company = items;
+                BindCompanies();
+
                 return View(divisions);
             }
         }
@@ -159,10 +167,12 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             }
 
             departments = DataAccess.DepartmentDAL.GetDepartments(divisionId, Common.ObjectTypeCode.Divison);
+
             if (departments.Count == 0)
             {
                 DataAccess.DivisionDAL.Delete(divisionId);
             }
+
             return RedirectToAction("DivisionResult");
         }
 
