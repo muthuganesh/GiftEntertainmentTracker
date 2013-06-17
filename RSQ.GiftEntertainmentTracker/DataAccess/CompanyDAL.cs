@@ -29,6 +29,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                             Country,
                             ZipCode,
                             Phone,
+                            EmailId,
                             Fax
                     FROM
                         tCompany
@@ -51,6 +52,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     company.Country = dr["Country"].ToString().Trim();
                     company.ZipCode = dr["ZipCode"].ToString().Trim();
                     company.PhoneNo = dr["Phone"].ToString().Trim();
+                    company.EmailId = dr["EmailId"].ToString().Trim();
                     company.FaxNo = dr["Fax"].ToString().Trim();
                 }
             }
@@ -72,12 +74,19 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                 command.Parameters.AddWithValue(@"tCountry", company.Country);
                 command.Parameters.AddWithValue(@"tZipCode", company.ZipCode);
                 command.Parameters.AddWithValue(@"tPhone", company.PhoneNo);
+                command.Parameters.AddWithValue(@"tEmailId", company.EmailId);
                 command.Parameters.AddWithValue(@"tFax", company.FaxNo);
                 command.Parameters.AddWithValue(@"tAddedBy", company.AddedBy);
+
+                MySqlParameter parameter = new MySqlParameter(@"tCompanyId", SqlDbType.Int);
+                parameter.Direction = ParameterDirection.Output;
+                command.Parameters.Add(parameter);
 
                 connection.Open();
                 command.ExecuteNonQuery();
                 connection.Close();
+
+                company.CompanyId= Convert.ToInt32(parameter.Value);
             }
         }
 
@@ -97,6 +106,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                 command.Parameters.AddWithValue(@"tCountry", company.Country);
                 command.Parameters.AddWithValue(@"tZipCode", company.ZipCode);
                 command.Parameters.AddWithValue(@"tPhone", company.PhoneNo);
+                command.Parameters.AddWithValue(@"tEmailId", company.EmailId);
                 command.Parameters.AddWithValue(@"tFax", company.FaxNo);
                 command.Parameters.AddWithValue(@"tUpdatedBy", company.UpdatedBy);
 
@@ -140,12 +150,13 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                             Country,
                             ZipCode,
                             Phone,
+                            EmailId,
                             Fax,
                             AddedBy
                         FROM
                             tCompany
                         WHERE
-                            AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
+                            AddedBy='{0}'", HttpContext.Current.User.Identity.Name);
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -167,6 +178,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         Country=dr["Country"].ToString().Trim(),
                         ZipCode = dr["ZipCode"].ToString().Trim(),
                         PhoneNo = dr["Phone"].ToString().Trim(),
+                        EmailId = dr["EmailId"].ToString().Trim(),
                         FaxNo = dr["Fax"].ToString().Trim(),
                         AddedBy = dr["AddedBy"].ToString().Trim()
                     };

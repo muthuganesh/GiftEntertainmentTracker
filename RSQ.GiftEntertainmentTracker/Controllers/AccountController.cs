@@ -21,8 +21,9 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         //
         // GET: /Account/LogOn
 
-        public ActionResult LogOn()
+        public ActionResult LogOn(string returnUrl)
         {
+            Session["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -38,8 +39,18 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 {
                     if (Membership.ValidateUser(user.UserName, model.Password))
                     {
-                        Session["RegisterUser"] = null;
                         FormsAuthentication.SetAuthCookie(user.UserName, model.RememberMe);
+
+                        string roleName = Session["roleName"] as string;
+                        string[] roles = null;
+                        if (!string.IsNullOrEmpty(roleName))
+                        {
+                            roles = Roles.GetRolesForUser(user.UserName);
+                            if (roles != null && roles.Length > 0)
+                                Roles.RemoveUserFromRoles(user.UserName, roles);
+                            Roles.AddUserToRole(user.UserName, roleName);
+                        }
+
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                         {
@@ -95,15 +106,11 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 Membership.CreateUser(model.Name, model.Password, model.Email, null, null, true, null, out createStatus);
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    string userName = model.Name;
+                    string returnUrl=Session["ReturnUrl"].ToString();
+                    return RedirectToAction("LogOn", new { returnUrl = returnUrl });
 
-                    string roleName = "Super Admin";
-                    if (!Roles.RoleExists(roleName))
-                        Roles.CreateRole(roleName);
-                    AddUserToRoles(userName, roleName);
-
-                    FormsAuthentication.SetAuthCookie(model.Name, false /* createPersistentCookie */);
-                    return RedirectToAction("CreateUser", "Profile");
+                    //FormsAuthentication.SetAuthCookie(model.Name, false /* createPersistentCookie */);
+                    //return RedirectToAction("CreateUser", "Profile");
                 }
                 else
                 {

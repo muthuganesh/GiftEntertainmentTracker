@@ -19,7 +19,7 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         //
         // GET: /Company/
 
-        public ActionResult CompanyResult()
+        public ActionResult CompanyResult(int? companyId)
         {
             string[] role = Roles.GetRolesForUser(User.Identity.Name);
             if (role.Count() > 0)
@@ -58,7 +58,16 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 ViewData["CompanyDivDep"] = string.Format(Common.ListItem.divDep);
             }
 
-            List<CompanyModel> companies = DataAccess.CompanyDAL.GetCompanies();
+            CompanyModel company=new CompanyModel();
+            List<CompanyModel> companies=new List<CompanyModel>();
+            if (companyId.HasValue)
+            {
+                company = DataAccess.CompanyDAL.Get(Convert.ToInt32(companyId));
+                companies.Add(company);
+            }
+            else
+                companies = DataAccess.CompanyDAL.GetCompanies();
+
             return View(companies);
         }
 
@@ -102,9 +111,12 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             //    Roles.CreateRole(roleName);
             //    AddUserToRoles(userName, roleName);
             //}
-            //var user=Membership.GetUser(userName);
-            //SuperAdminGenerator.Mail(user.Email.ToString(), "http://23.21.244.58/SuperAdmin/Division?companyId=11");
-            return RedirectToAction("CompanyResult");
+            if (company.CompanyId != 0)
+            {
+                string url = string.Format("http://23.21.244.58/Company/CompanyResult?companyId={0}&roleName={1}", company.CompanyId,"Super Admin");
+                SuperAdminGenerator.Mail(company.EmailId.Trim(), url.Trim());
+            }
+            return RedirectToAction("CompanyResult", new { companyId = company.CompanyId });
         }
 
         //private void AddUserToRoles(string userName, string roleName)
@@ -141,7 +153,7 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             company.UpdatedBy = User.Identity.Name;
             DataAccess.CompanyDAL.Update(company);
 
-            return RedirectToAction("CompanyResult");
+            return RedirectToAction("CompanyResult", new { companyId = company.CompanyId });
         }
 
         //
@@ -165,9 +177,10 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             if (departments.Count == 0)
             {
                 DataAccess.CompanyDAL.Delete(companyId);
+                return RedirectToAction("CompanyResult", new { companyId = DBNull.Value });
             }
 
-            return RedirectToAction("CompanyResult");
+            return RedirectToAction("CompanyResult", new { companyId = companyId });
         }
 
         public ActionResult Select(int companyId)
@@ -177,7 +190,7 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             items.Add(new SelectListItem { Text = Common.ListItem.department, Value = Common.ObjectTypeCode.Department });
             ViewBag.companyItems = items;
             Session["companyId"]=companyId;
-            return View();
+            return PartialView("Select");
                 //RedirectToAction("CreateDivision", "Division", new { objectId = companyId, objectTypeCode = Common.ObjectTypeCode.Company });
         }
 

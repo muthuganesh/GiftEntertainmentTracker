@@ -43,7 +43,13 @@ namespace RSQ.GiftEntertainmentTracker.Models
         [Required]
         [Display(Name = "Phone Number")]
         [DataType(DataType.Text)]
+        [StringLength(10)]
         public string PhoneNo { get; set; }
+
+        [Required]
+        [Display(Name = "Email Id")]
+        [EmailValidation(ErrorMessage = "Email id should be like this 'xxx @ yyy.com'")]
+        public string EmailId { get; set; }
 
         [Display(Name = "Fax Number")]
         [DataType(DataType.Text)]
