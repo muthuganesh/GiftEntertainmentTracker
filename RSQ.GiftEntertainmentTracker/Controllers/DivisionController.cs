@@ -72,7 +72,8 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         private void BindCompanies()
         {
-            List<CompanyModel> compaines = CompanyDAL.GetCompanies();
+            string addedFor = Session["UserEmailId"].ToString();
+            List<CompanyModel> compaines = CompanyDAL.GetCompanies(addedFor);
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (CompanyModel c in compaines)
             {

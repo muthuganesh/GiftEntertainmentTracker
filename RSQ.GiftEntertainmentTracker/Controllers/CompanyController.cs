@@ -60,13 +60,15 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
             CompanyModel company=new CompanyModel();
             List<CompanyModel> companies=new List<CompanyModel>();
+            string addedFor = Session["UserEmailId"].ToString();
+
             if (companyId.HasValue)
             {
                 company = DataAccess.CompanyDAL.Get(Convert.ToInt32(companyId));
                 companies.Add(company);
             }
             else
-                companies = DataAccess.CompanyDAL.GetCompanies();
+                companies = DataAccess.CompanyDAL.GetCompanies(addedFor);
 
             return View(companies);
         }
@@ -98,19 +100,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 // TODO: Add insert logic here
             company.AddedBy = User.Identity.Name;
             DataAccess.CompanyDAL.Insert(company);
-
-            //string userName = User.Identity.Name;
-
-            //string roleName = "Super Admin";
-            //if (Roles.RoleExists(roleName))
-            //{
-            //    AddUserToRoles(userName, roleName);
-            //}
-            //else
-            //{
-            //    Roles.CreateRole(roleName);
-            //    AddUserToRoles(userName, roleName);
-            //}
             if (company.CompanyId != 0)
             {
                 string url = string.Format("http://23.21.244.58/Company/CompanyResult?companyId={0}&roleName={1}", company.CompanyId,"Super Admin");
@@ -119,17 +108,6 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             return RedirectToAction("CompanyResult", new { companyId = company.CompanyId });
         }
 
-        //private void AddUserToRoles(string userName, string roleName)
-        //{
-        //    string[] roles = null;
-        //    if (userName != null)
-        //    {
-        //        roles = Roles.GetRolesForUser(userName);
-        //        if (roles != null && roles.Length > 0)
-        //            Roles.RemoveUserFromRoles(userName, roles);
-        //    }
-        //    Roles.AddUserToRole(userName, roleName);
-        //}
         
         //
         // GET: /Company/Edit/5

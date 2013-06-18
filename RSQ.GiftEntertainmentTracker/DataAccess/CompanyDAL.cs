@@ -6,6 +6,7 @@ using RSQ.GiftEntertainmentTracker.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Text;
+using System.Web.Security;
 
 namespace RSQ.GiftEntertainmentTracker.DataAccess
 {
@@ -15,7 +16,6 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
         {
             DataTable dt = new DataTable();
             CompanyModel company = new CompanyModel();
-
             using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
             {
                 string command = string.Format(@"
@@ -30,7 +30,8 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                             ZipCode,
                             Phone,
                             EmailId,
-                            Fax
+                            Fax,
+                            AddedFor
                     FROM
                         tCompany
                     WHERE
@@ -54,6 +55,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                     company.PhoneNo = dr["Phone"].ToString().Trim();
                     company.EmailId = dr["EmailId"].ToString().Trim();
                     company.FaxNo = dr["Fax"].ToString().Trim();
+                    company.AddedFor = dr["AddedFor"].ToString().Trim();
                 }
             }
             return company;
@@ -131,7 +133,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             }
         }
 
-        public static List<CompanyModel> GetCompanies()
+        public static List<CompanyModel> GetCompanies(string addedFor)
         {
             DataTable table = new DataTable();
             StringBuilder codeBuilder = new StringBuilder();
@@ -140,6 +142,10 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
             using (MySqlConnection connection = new MySqlConnection(Common.ConnectionString.GiftDb))
             {
                 string query = string.Format(@"
+                        SELECT
+                            *
+                        FROM
+                        (
                         SELECT
                             CompanyId,
                             CompanyName,
@@ -152,11 +158,23 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                             Phone,
                             EmailId,
                             Fax,
+                            AddedFor,
                             AddedBy
                         FROM
                             tCompany
                         WHERE
-                            AddedBy='{0}'", HttpContext.Current.User.Identity.Name);
+                            <<<includeSql>>>) X");
+                if(!string.IsNullOrEmpty(addedFor.Trim()))
+                    codeBuilder=codeBuilder.AppendFormat("AddedFor='{0}'",addedFor);
+                else
+                    codeBuilder=codeBuilder.AppendFormat("AddedBy='{0}'",HttpContext.Current.User.Identity.Name);
+
+                if (!string.IsNullOrEmpty(codeBuilder.ToString().Trim()))
+                    query = query.Replace("<<<includeSql>>>", codeBuilder.ToString().Trim());
+                else
+                    query = query.Replace("WHERE <<<includeSql>>>", codeBuilder.ToString().Trim());
+
+                query = query.ToString().Trim();
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
@@ -180,6 +198,7 @@ namespace RSQ.GiftEntertainmentTracker.DataAccess
                         PhoneNo = dr["Phone"].ToString().Trim(),
                         EmailId = dr["EmailId"].ToString().Trim(),
                         FaxNo = dr["Fax"].ToString().Trim(),
+                        AddedFor = dr["AddedFor"].ToString().Trim(),
                         AddedBy = dr["AddedBy"].ToString().Trim()
                     };
                     companies.Add(company);

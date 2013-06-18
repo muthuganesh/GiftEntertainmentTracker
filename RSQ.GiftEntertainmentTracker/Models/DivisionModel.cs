@@ -11,24 +11,6 @@ namespace RSQ.GiftEntertainmentTracker.Models
     {
         public int DivisionId { get; set; }
 
-        //[Required(ErrorMessage = "Please select a Country")]
-        //public int CompanyId { get; set; }
-
-
-        //public IEnumerable<SelectListItem> CompanyList
-        //{
-        //    get
-        //    {
-        //        return DataAccess.CompanyDAL.GetCompanies()
-        //            .Select(company => new SelectListItem
-        //            {
-        //                Text = company.CompanyName,
-        //                Value = company.CompanyId.ToString()
-        //            })
-        //            .ToList();
-        //    }
-        //}
-
         public string CompanyName { get; set; }
 
         [Required]

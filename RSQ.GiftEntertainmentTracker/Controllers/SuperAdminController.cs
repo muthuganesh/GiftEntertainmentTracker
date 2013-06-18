@@ -106,13 +106,13 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
 
         private void BindCompanies()
         {
-            List<CompanyModel> compaines = CompanyDAL.GetCompanies();
-            List<SelectListItem> items = new List<SelectListItem>();
-            foreach (CompanyModel c in compaines)
-            {
-                items.Add(new SelectListItem { Text = c.CompanyName, Value = c.CompanyId.ToString() });
-            }
-            ViewBag.Company = items;
+            //List<CompanyModel> compaines = CompanyDAL.GetCompanies();
+            //List<SelectListItem> items = new List<SelectListItem>();
+            //foreach (CompanyModel c in compaines)
+            //{
+            //    items.Add(new SelectListItem { Text = c.CompanyName, Value = c.CompanyId.ToString() });
+            //}
+            //ViewBag.Company = items;
         }
 
         public ActionResult CreateDivision()

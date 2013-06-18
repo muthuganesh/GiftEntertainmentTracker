@@ -56,6 +56,9 @@ namespace RSQ.GiftEntertainmentTracker.Models
         public string FaxNo { get; set; }
 
         [Required]
+        public string AddedFor { get; set; }
+
+        [Required]
         public string AddedBy { get; set; }
 
         [Required]

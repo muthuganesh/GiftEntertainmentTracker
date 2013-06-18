@@ -24,7 +24,10 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
         public ActionResult LogOn(string returnUrl)
         {
             Session["ReturnUrl"] = returnUrl;
-            return View();
+            if (!string.IsNullOrEmpty(HttpContext.User.Identity.Name))
+                return RedirectToAction("LogOff", "Account");
+            else
+                return View();
         }
 
         //
@@ -40,24 +43,29 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                     if (Membership.ValidateUser(user.UserName, model.Password))
                     {
                         FormsAuthentication.SetAuthCookie(user.UserName, model.RememberMe);
-
+                        
                         string roleName = Session["roleName"] as string;
                         string[] roles = null;
-                        if (!string.IsNullOrEmpty(roleName))
+                        if (!string.IsNullOrEmpty(roleName) && Roles.RoleExists(roleName))
                         {
-                            roles = Roles.GetRolesForUser(user.UserName);
-                            if (roles != null && roles.Length > 0)
-                                Roles.RemoveUserFromRoles(user.UserName, roles);
-                            Roles.AddUserToRole(user.UserName, roleName);
+                            AddUserToRole(user, roleName, roles);
                         }
+                        else if (!string.IsNullOrEmpty(roleName))
+                        {
+                            Roles.CreateRole(roleName);
+                            AddUserToRole(user, roleName, roles);
+                        }
+
 
                         if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                         {
+                            Session["UserEmailId"] = model.Email;
                             return Redirect(returnUrl);
                         }
                         else
                         {
+                            Session["UserEmailId"] = DBNull.Value;
                             return RedirectToAction("Index", "Home");
                         }
                     }
@@ -72,6 +80,14 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
 
+        }
+
+        private static void AddUserToRole(MembershipUser user, string roleName, string[] roles)
+        {
+            roles = Roles.GetRolesForUser(user.UserName);
+            if (roles != null && roles.Length > 0)
+                Roles.RemoveUserFromRoles(user.UserName, roles);
+            Roles.AddUserToRole(user.UserName, roleName);
         }
 
         //
@@ -106,7 +122,8 @@ namespace RSQ.GiftEntertainmentTracker.Controllers
                 Membership.CreateUser(model.Name, model.Password, model.Email, null, null, true, null, out createStatus);
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    string returnUrl=Session["ReturnUrl"].ToString();
+                    string returnUrl = Session["ReturnUrl"] == null ? DBNull.Value.ToString() : Session["ReturnUrl"].ToString();
+                    returnUrl = returnUrl.Trim();
                     return RedirectToAction("LogOn", new { returnUrl = returnUrl });
 
                     //FormsAuthentication.SetAuthCookie(model.Name, false /* createPersistentCookie */);
