@@ -54,13 +54,14 @@
         grid.Column("EmailId","Email Id"),
         grid.Column("FaxNo", "Fax Number")));
 }
- <div>
+ <div class="table table-hover">
  @grid.GetHtml(
   tableStyle: "grid",
       headerStyle: "head",
       alternatingRowStyle: "alt",
                columns: cols)
  </div>
-<p style="margin-left:90%">
+<p class="text-right">
     @Html.ActionLink("Back to Main Page", "Index", "Home")
 </p>
+

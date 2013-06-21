@@ -1,12 +1,12 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>Welcome <strong>@Html.ActionLink(User.Identity.Name,"ChangePassword","Account")</strong>!
-    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]
-    <br />
-    @foreach (var role in Roles.GetRolesForUser(User.Identity.Name))
-    {
-        <h4 style="font-family:Times New Roman;color:Maroon;">Role:@Html.Label(role)</h4>
-    }
-</text>
-   
+﻿@if (Request.IsAuthenticated)
+{
+    <div class="container">
+    <p class="text-right"> Welcome @Html.ActionLink(User.Identity.Name, "ChangePassword", "Account")!
+         [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</p>
+        @foreach (var role in Roles.GetRolesForUser(User.Identity.Name))
+        {
+        <p class="text-right">Role:@Html.Label(role)</p>
+        }
+    </div>
 }
 

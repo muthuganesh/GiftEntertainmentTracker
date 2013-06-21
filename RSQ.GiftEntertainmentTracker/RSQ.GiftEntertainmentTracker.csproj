@@ -117,6 +117,36 @@
     <Compile Include="Security\DivisionPermission.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BootStrap\assets\css\bootstrap-responsive.css" />
+    <Content Include="Content\BootStrap\assets\css\bootstrap.css" />
+    <Content Include="Content\BootStrap\assets\css\docs.css" />
+    <Content Include="Content\BootStrap\assets\ico\apple-touch-icon-114-precomposed.png" />
+    <Content Include="Content\BootStrap\assets\ico\apple-touch-icon-144-precomposed.png" />
+    <Content Include="Content\BootStrap\assets\ico\apple-touch-icon-57-precomposed.png" />
+    <Content Include="Content\BootStrap\assets\ico\apple-touch-icon-72-precomposed.png" />
+    <Content Include="Content\BootStrap\assets\ico\favicon.ico" />
+    <Content Include="Content\BootStrap\assets\ico\favicon.png" />
+    <Content Include="Content\BootStrap\assets\js\application.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-affix.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-alert.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-button.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-carousel.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-collapse.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-dropdown.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-modal.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-popover.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-scrollspy.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-tab.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-tooltip.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-transition.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap-typeahead.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap.js" />
+    <Content Include="Content\BootStrap\assets\js\bootstrap.min.js" />
+    <Content Include="Content\BootStrap\assets\js\google-code-prettify\prettify.css" />
+    <Content Include="Content\BootStrap\assets\js\google-code-prettify\prettify.js" />
+    <Content Include="Content\BootStrap\assets\js\holder\holder.js" />
+    <Content Include="Content\BootStrap\assets\js\html5shiv.js" />
+    <Content Include="Content\BootStrap\assets\js\jquery.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -236,6 +266,8 @@
     <Content Include="Views\Department\DepartmentDetails.cshtml" />
     <Content Include="Views\Department\CreateDepartment.cshtml" />
     <Content Include="Views\Department\EditDepartment.cshtml" />
+    <None Include="Content\BootStrap\assets\ico\Thumbs.db" />
+    <None Include="Content\BootStrap\assets\js\README.md" />
     <None Include="Images\Thumbs.db" />
     <None Include="Properties\PublishProfiles\Profile.pubxml" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
@@ -264,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\BootStrap\assets\img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

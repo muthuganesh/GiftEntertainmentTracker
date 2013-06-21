@@ -6,7 +6,7 @@
 
 <h2 style="font-family:Times New Roman;color:Gray;">Company Details</h2>
 
-    <table style="border-width:medium" title="Company Details">
+    <table style="border-width:medium" title="Company Details" class="table table-hover table-bordered">
         <tr>
             <td style="width:25%" align="justify">
                 Company Name:
@@ -77,7 +77,7 @@
         </tr>
     </table>
 
-<p style="margin-left:90%">
+<p class="text-right">
 @if (ViewBag.CompanyEdit == true)
 {
     @Html.ActionLink("Edit", "EditCompany", new { companyId = Model.CompanyId }) <br />

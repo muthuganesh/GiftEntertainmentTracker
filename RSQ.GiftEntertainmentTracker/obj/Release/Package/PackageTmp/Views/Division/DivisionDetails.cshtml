@@ -8,7 +8,7 @@
 
 <h3 style="font-family:Calibri;color:Purple" title="Company Name">@Html.DisplayFor(model => model.CompanyName)</h3>
 
-<table style="border-width:medium" title="Division Details">
+<table style="border-width:medium" title="Division Details" class="table table-hover">
         <tr>
             <td style="width:25%" align="justify">
                 Division Name:
@@ -71,7 +71,7 @@
         </tr>
     </table>
 
-<p style="margin-left:90%">
+<p class="text-right">
 @if (ViewBag.DivisionEdit == true)
 {
     @Html.ActionLink("Edit", "EditDivision", new { divisionId = Model.DivisionId }) <br />
